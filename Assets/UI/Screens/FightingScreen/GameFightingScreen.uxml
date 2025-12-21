@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="main_container" data-source-type="GameFightingViewModel, Assembly-CSharp" style="flex-grow: 1;">
+        <ui:VisualElement name="timer_container" style="flex-grow: 1; -unity-text-align: middle-center;">
+            <ui:Label name="label" style="font-size: 56px; -unity-font-style: bold; color: rgb(255, 255, 255);">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="RawTimeInSeconds" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
