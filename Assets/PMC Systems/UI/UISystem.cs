@@ -18,7 +18,7 @@ partial struct UISystem : ISystem
         var gameFsm = SystemAPI.GetSingletonEntity<GameFSM>();
         var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
 
-        foreach (var stateChangeEvent in SystemAPI.Query<RefRO<UIStateChangeEvent>>())
+        foreach (var (stateChangeEvent, eventTag) in SystemAPI.Query<RefRO<UIStateChangeEvent>, RefRO<UIEvent>>())
         {
             var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFsm);
             var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);

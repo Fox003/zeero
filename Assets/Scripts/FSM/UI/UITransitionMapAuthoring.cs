@@ -17,15 +17,19 @@ class UITransitionMapAuthoringBaker : Baker<UITransitionMapAuthoring>
         
         var transitionPairs = new List<TransitionPair>
         {
-            new TransitionPair(from: UIFSMStates.GAME_STARTING_STATE, to: UIFSMStates.GAME_FIGHTING_STATE),
-            new TransitionPair(from: UIFSMStates.GAME_FIGHTING_STATE, to: UIFSMStates.GAME_GAMEOVER_STATE),
-            new TransitionPair(from: UIFSMStates.GAME_GAMEOVER_STATE, to: UIFSMStates.GAME_STARTING_STATE),
-            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_STARTING_STATE),
+            new TransitionPair(from: UIFSMStates.GAME_COUNTDOWN_STATE, to: UIFSMStates.GAME_FIGHTING_STATE),
+            new TransitionPair(from: UIFSMStates.GAME_FIGHTING_STATE, to: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
+            new TransitionPair(from: UIFSMStates.GAME_UPGRADE_PHASE_STATE, to: UIFSMStates.GAME_GAMEOVER_STATE),
+
+            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_COUNTDOWN_STATE),
             new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_GAMEOVER_STATE),
             new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_FIGHTING_STATE),
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_STARTING_STATE),
+            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
+
+            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_COUNTDOWN_STATE),
             new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_GAMEOVER_STATE),
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_FIGHTING_STATE)
+            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_FIGHTING_STATE),
+            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
         };
         
         AddComponent(entity, new UIStateTransitionMap()

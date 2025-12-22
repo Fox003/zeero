@@ -21,25 +21,7 @@ partial struct GameStateSystem : ISystem
         var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
 
         foreach (var conditions in SystemAPI.Query<RefRO<GameConditions>>().WithChangeFilter<GameConditions>())
-        {
-            if (conditions.ValueRO.start)
-            {
-                var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
-                var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-            
-                gameAddBuffer.Add(new EnableStateRequest()
-                {
-                    Entity = gameFSM,
-                    StateToEnable = GameFSMStates.COUNTDOWN_STATE,
-                });
-            
-                uiAddBuffer.Add(new EnableStateRequest()
-                {
-                    Entity = uiFsm,
-                    StateToEnable = UIFSMStates.GAME_STARTING_STATE
-                });
-            }
-            
+        {    
             // Round End
             if (conditions.ValueRO.IsTimeUp || conditions.ValueRO.IsPlayerDead)
             {
@@ -49,13 +31,13 @@ partial struct GameStateSystem : ISystem
                 gameAddBuffer.Add(new EnableStateRequest()
                 {
                     Entity = gameFSM,
-                    StateToEnable = GameFSMStates.ROUND_END_STATE,
+                    StateToEnable = GameFSMStates.UPGRADE_PHASE_STATE,
                 });
             
                 uiAddBuffer.Add(new EnableStateRequest()
                 {
                     Entity = uiFsm,
-                    StateToEnable = UIFSMStates.HIDDEN_STATE
+                    StateToEnable = UIFSMStates.GAME_UPGRADE_PHASE_STATE
                 });
             }
         }

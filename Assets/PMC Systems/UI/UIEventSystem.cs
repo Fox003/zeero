@@ -19,7 +19,7 @@ partial struct UIEventSystem : ISystem
         var query = SystemAPI.QueryBuilder().WithAll<UIEvent>().Build();
         state.EntityManager.DestroyEntity(query);
             
-        var ecb = screens.TestScreen1.Value.ECB;
+        var ecb = screens.GameFightingScreen.Value.ECB;
         if (ecb.IsCreated)
         {
             ecb.Playback(state.EntityManager);
@@ -27,15 +27,15 @@ partial struct UIEventSystem : ISystem
         }
 
         ecb = new EntityCommandBuffer(Allocator.TempJob);
-        screens.TestScreen1.Value.ECB = ecb;
-        screens.TestScreen2.Value.ECB = ecb;
-        screens.GameStartScreen.Value.ECB = ecb;
+        screens.GameFightingScreen.Value.ECB = ecb;
+        screens.GameUpgradePhaseScreen.Value.ECB = ecb;
+        screens.GameCountdownScreen.Value.ECB = ecb;
     }
 
     public void OnDestroy(ref SystemState state)
     {
         var screens = SystemAPI.GetSingleton<UIScreens>();
-        var ecb = screens.TestScreen2.Value.ECB;
+        var ecb = screens.GameFightingScreen.Value.ECB;
         if (ecb.IsCreated)
         {
             ecb.Dispose();

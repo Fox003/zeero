@@ -23,7 +23,7 @@ partial struct UIStateTransitions : ISystem
                      .WithChangeFilter<CurrentStateType>()
                      .WithEntityAccess())
         {
-            if (SystemAPI.IsComponentEnabled<UIStateStarting>(entity))
+            if (SystemAPI.IsComponentEnabled<UIStateCountdown>(entity))
             {
                 ShowStartingStateScreens(ref screens.ValueRW);
             }
@@ -36,28 +36,38 @@ partial struct UIStateTransitions : ISystem
                 ShowFightingStateScreens(ref screens.ValueRW);
                 screens.ValueRW.GameFightingScreen.Value.BindData(fightingViewModel);
             }
+            else if (SystemAPI.IsComponentEnabled<UIStateUpgradePhase>(entity))
+            {
+                ShowUpgradePhaseScreens(ref screens.ValueRW);
+            }
         }
     }
 
     private void HideAllScreens(ref UIScreens screens)
     {
-        screens.GameStartScreen.Value.Hide();
-        //screens.GameCountdownScreen.Value.Hide();
+        screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
+        screens.GameUpgradePhaseScreen.Value.Hide();
     }
 
     private void ShowStartingStateScreens(ref UIScreens screens)
     {
-        screens.GameStartScreen.Value.Show();
-        //screens.GameCountdownScreen.Value.Hide();
+        screens.GameCountdownScreen.Value.Show();
         screens.GameFightingScreen.Value.Hide();
+        screens.GameUpgradePhaseScreen.Value.Hide();
     }
     
     private void ShowFightingStateScreens(ref UIScreens screens)
     {
-        screens.GameStartScreen.Value.Hide();
+        screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Show();
-        //screens.GameCountdownScreen.Value.Hide();
-        
+        screens.GameUpgradePhaseScreen.Value.Hide();
+    }
+
+    private void ShowUpgradePhaseScreens(ref UIScreens screens)
+    {
+        screens.GameCountdownScreen.Value.Hide();
+        screens.GameFightingScreen.Value.Hide();
+        screens.GameUpgradePhaseScreen.Value.Show();
     }
 }

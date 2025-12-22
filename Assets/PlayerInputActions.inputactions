@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputActions",
     "maps": [
         {
@@ -172,16 +173,16 @@
                     "name": "Point",
                     "type": "PassThrough",
                     "id": "963df62e-815a-4833-813c-9bad1e4820e5",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Cancel",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "1156fac9-052c-4541-a8c0-cc815ba1f691",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -190,7 +191,7 @@
                     "name": "Click",
                     "type": "PassThrough",
                     "id": "57aae877-02e5-4966-8c60-669f74edd807",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -199,14 +200,14 @@
                     "name": "MiddleClick",
                     "type": "PassThrough",
                     "id": "583d1fe6-953b-4d0e-8ed1-98b6b8c03733",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "RightClick",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "29e6f592-0267-4f3b-b3d0-5c8113e3d891",
                     "expectedControlType": "",
                     "processors": "",
@@ -217,10 +218,10 @@
                     "name": "ScrollWheel",
                     "type": "PassThrough",
                     "id": "6d04b35b-dd7f-4023-88c8-d67642d0ba35",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -260,7 +261,7 @@
                 {
                     "name": "",
                     "id": "35a0cd19-6ec8-419d-a0cd-5c10f8d4d319",
-                    "path": "",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -271,7 +272,7 @@
                 {
                     "name": "",
                     "id": "d5b9d12e-c7b1-4465-a180-c209db620c02",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -282,7 +283,7 @@
                 {
                     "name": "",
                     "id": "12d51074-315f-453d-a238-196edeb6f4e8",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -293,7 +294,7 @@
                 {
                     "name": "",
                     "id": "edbd5bb4-9876-4dbb-82a9-a0ae5beaaedc",
-                    "path": "",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -304,7 +305,7 @@
                 {
                     "name": "",
                     "id": "3c9e40e3-262a-4c83-98c4-bcce2d75c74e",
-                    "path": "",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -315,7 +316,7 @@
                 {
                     "name": "",
                     "id": "36b5c6e8-d3f8-42a4-a155-67d54fd68c0d",
-                    "path": "",
+                    "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

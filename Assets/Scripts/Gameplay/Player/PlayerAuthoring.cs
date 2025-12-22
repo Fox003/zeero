@@ -8,6 +8,8 @@ class PlayerAuthoring : MonoBehaviour
     public float MaxMoveSpeed;
     public float Acceleration;
     public float Drag;
+
+    public float MaxHealth;
     
     [Header("Shooting")]
     public float ShootCooldown;
@@ -58,8 +60,8 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         
         AddComponent(entity, new HealthData()
         {
-            MaxHealth = 100f,
-            CurrentHealth = 100f
+            MaxHealth = authoring.MaxHealth,
+            CurrentHealth = authoring.MaxHealth
         });
         
         

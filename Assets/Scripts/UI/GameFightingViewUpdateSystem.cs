@@ -1,5 +1,6 @@
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
 
 partial struct GameFightingViewUpdateSystem : ISystem
 {
@@ -15,7 +16,7 @@ partial struct GameFightingViewUpdateSystem : ISystem
         var viewModel = SystemAPI.ManagedAPI.GetSingleton<GameFightingViewModel>();
         var gameTimer = SystemAPI.GetSingleton<GameTimerData>();
 
-        viewModel.RawTimeInSeconds = gameTimer.CurrentTime;
+        viewModel.RawTimeInSeconds = math.trunc(gameTimer.CurrentTime);
     }
 
     [BurstCompile]

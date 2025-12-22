@@ -19,11 +19,9 @@ class UIAuthoringBaker : Baker<UIAuthoring>
         
         AddComponent(entity, new UIScreens()
         {
-            TestScreen1 = TestScreen1.Instantiate(root.Q<VisualElement>("test_screen_1")),
-            TestScreen2 = TestScreen2.Instantiate(root.Q<VisualElement>("test_screen_2")),
-            GameStartScreen = GameStartScreen.Instantiate(root.Q<VisualElement>("game_start_screen")),
             GameFightingScreen = GameFightingScreen.Instantiate(root.Q<VisualElement>("game_fighting_screen")),
-            //GameCountdownScreen = GameStartScreen.Instantiate(root.Q<VisualElement>("game_countdown_screen")),
+            GameCountdownScreen = GameCountdownScreen.Instantiate(root.Q<VisualElement>("game_countdown_screen")),
+            GameUpgradePhaseScreen = UpgradePhaseScreen.Instantiate(root.Q<VisualElement>("game_upgrade_screen")),
         });
         
         AddComponentObject(entity, new GameFightingViewModel());

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameStartScreen : UIScreen
+public class GameCountdownScreen : UIScreen
 {
     private VisualElement _mainContainer;
     private Label _countdownLabel;
@@ -12,9 +12,9 @@ public class GameStartScreen : UIScreen
     
     private Timer _timer;
     
-    public static GameStartScreen Instantiate(VisualElement ParentElement)
+    public static GameCountdownScreen Instantiate(VisualElement ParentElement)
     {
-        var instance = ScriptableObject.CreateInstance<GameStartScreen>();
+        var instance = ScriptableObject.CreateInstance<GameCountdownScreen>();
         instance.RootElement =  ParentElement;
         
         instance._mainContainer = instance.RootElement.Q<VisualElement>("main_container");

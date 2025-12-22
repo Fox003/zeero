@@ -25,8 +25,11 @@ class UIFSMBaker : Baker<UIFSMAuthoring>
         AddComponent<UIStateGameOver>(entity);
         FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_GAMEOVER_STATE, false);
 
-        AddComponent<UIStateStarting>(entity);
-        FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_STARTING_STATE, false);
+        AddComponent<UIStateCountdown>(entity);
+        FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_COUNTDOWN_STATE, false);
+
+        AddComponent<UIStateUpgradePhase>(entity);
+        FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_UPGRADE_PHASE_STATE, false);
 
     }
     

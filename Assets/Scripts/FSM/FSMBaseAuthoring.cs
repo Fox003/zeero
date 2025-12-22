@@ -15,6 +15,6 @@ class FSMBaseAuthoringBaker : Baker<FSMBaseAuthoring>
         AddComponent<FSM>(entity);
         AddComponent<EnableStateRequest>(entity);
         AddComponent<DisableStateRequest>(entity);
-        AddComponent<FSMDefaultState>(entity);
+        //AddComponent<FSMDefaultState>(entity);
     }
 }

@@ -1,10 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="TestScreen" src="project://database/Assets/UI/Screens/TestScreen1/TestScreen.uxml?fileID=9197481963319205126&amp;guid=76322ba203b8645a5a4aa82517e311bf&amp;type=3#TestScreen" />
-    <ui:Template name="TestScreen2" src="project://database/Assets/UI/Screens/TestScreen2/TestScreen2.uxml?fileID=9197481963319205126&amp;guid=1e3c4a03bb32e40418e755ea6658cdc3&amp;type=3#TestScreen2" />
-    <ui:Template name="GameStartScreen" src="project://database/Assets/UI/Screens/GameStartingScreen/GameStartScreen.uxml?fileID=9197481963319205126&amp;guid=a9b10c022c3514532aa75356c553367e&amp;type=3#GameStartScreen" />
-    <ui:Template name="GameFightingScreen" src="project://database/Assets/UI/Screens/FightingScreen/GameFightingScreen.uxml?fileID=9197481963319205126&amp;guid=b04c3e08cdf174acfb298b94b66d9247&amp;type=3#GameFightingScreen" />
-    <ui:Instance template="TestScreen" name="test_screen_1" style="display: none; visibility: visible; flex-grow: 1;" />
-    <ui:Instance template="TestScreen2" name="test_screen_2" style="display: none;" />
-    <ui:Instance template="GameStartScreen" name="game_start_screen" style="flex-grow: 1; color: rgb(255, 255, 255); display: none;" />
-    <ui:Instance template="GameFightingScreen" name="game_fighting_screen" style="display: none;" />
+    <ui:Template name="GameFightingScreen" src="project://database/Assets/UI/Screens/FightingScreen/GameFightingScreen.uxml?fileID=9197481963319205126&amp;guid=b04c3e08cdf174acfb298b94b66d9247&amp;type=3#GameFightingScreen"/>
+    <ui:Template name="GameStartScreen" src="project://database/Assets/UI/Screens/GameStartingScreen/GameCountdownScreen.uxml?fileID=9197481963319205126&amp;guid=a9b10c022c3514532aa75356c553367e&amp;type=3#GameCountdownScreen"/>
+    <ui:Template name="UpgradePhaseScreen" src="project://database/Assets/UI/Screens/UpgradePhaseScreen/UpgradePhaseScreen.uxml?fileID=9197481963319205126&amp;guid=9c0fffd9e2a67e64fb1ea90a669813f5&amp;type=3#UpgradePhaseScreen"/>
+    <ui:Instance template="UpgradePhaseScreen" name="game_upgrade_screen" style="flex-grow: 1; display: none;"/>
+    <ui:Instance template="GameStartScreen" name="game_countdown_screen" style="flex-grow: 1; color: rgb(255, 255, 255); display: none;"/>
+    <ui:Instance template="GameFightingScreen" name="game_fighting_screen" style="display: none;"/>
 </ui:UXML>

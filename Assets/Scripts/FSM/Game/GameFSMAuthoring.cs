@@ -12,8 +12,11 @@ class GameFSMAuthoringBaker : Baker<GameFSMAuthoring>
         var entity = GetEntity(TransformUsageFlags.None);
         
         AddComponent<GameFSM>(entity);
-        AddComponent(entity, new CurrentStateType(){Type = GameFSMStates.COUNTDOWN_STATE});
-        
+        AddComponent(entity, new CurrentStateType(){Type = GameFSMStates.INIT_STATE});
+
+        AddComponent(entity, GameFSMStates.INIT_STATE);
+        FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.INIT_STATE, true);
+
         AddComponent(entity, GameFSMStates.COUNTDOWN_STATE);
         FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.COUNTDOWN_STATE, false);
         
