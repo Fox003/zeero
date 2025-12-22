@@ -26,12 +26,16 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         var proj = GetEntity(authoring.defaultProjectile, TransformUsageFlags.Dynamic);
         var shootTransform = GetEntity(authoring.ShootTransform, TransformUsageFlags.Dynamic);
         
+        // TAGS
+
         AddComponent<PlayerNeedsInputAssociation>(entity);
         AddComponent<LookData>(entity);
         AddComponent<EntitySpawnRequest>(entity);
         SetComponentEnabled<EntitySpawnRequest>(entity,false);
         
         AddComponentObject(entity, new ControllerReference());
+
+        // COMPONENTS INIT
         
         AddComponent(entity, new PlayerInputs()
         {
@@ -63,7 +67,5 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
             MaxHealth = authoring.MaxHealth,
             CurrentHealth = authoring.MaxHealth
         });
-        
-        
     }
 }

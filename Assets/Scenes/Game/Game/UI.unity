@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 1146609698}
   - component: {fileID: 1146609697}
   m_Layer: 0
-  m_Name: UIFSMEntity
+  m_Name: UIFSM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

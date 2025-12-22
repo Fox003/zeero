@@ -49,11 +49,3 @@ partial struct GameStateSystem : ISystem
         
     }
 }
-
-public enum GameState
-{
-    Starting,
-    Fighting,
-    Upgrading,
-    GameOver
-}

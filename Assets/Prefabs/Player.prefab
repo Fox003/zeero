@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4032607265578068936}
   - component: {fileID: 323239648503471401}
+  - component: {fileID: -7358549907698784124}
   - component: {fileID: -1019776772727948388}
   - component: {fileID: 2543875501969172401}
   m_Layer: 0
@@ -177,6 +178,20 @@ MonoBehaviour:
   ShootCooldown: 2
   defaultProjectile: {fileID: 1222493698362355362, guid: 15d6902529fca47a986f1631da5e5d3d, type: 3}
   ShootTransform: {fileID: 3692516350156418184}
+--- !u!114 &-7358549907698784124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659956755340752937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5ee8d099fe55c4e9c046e8b1473e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerModifiersAuthoring
+  DefaultAdditiveModifierValue: 0
+  DefaultMultiplyModifierValue: 1
 --- !u!54 &-1019776772727948388
 Rigidbody:
   m_ObjectHideFlags: 0

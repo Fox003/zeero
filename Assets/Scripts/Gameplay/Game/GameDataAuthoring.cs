@@ -4,7 +4,6 @@ using UnityEngine;
 class GameDataAuthoring : MonoBehaviour
 {
     public float MaxGameTime;
-    public GameState InitialGameState;
 }
 
 class GameDataAuthoringBaker : Baker<GameDataAuthoring>

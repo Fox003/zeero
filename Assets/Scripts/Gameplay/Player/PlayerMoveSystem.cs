@@ -27,15 +27,22 @@ partial struct PlayerMoveSystem : ISystem
         if (gameState.Type != GameFSMStates.FIGHTING_STATE)
             return;
         
-        foreach (var (movementData, inputs, transform) in 
-                 SystemAPI.Query<RefRW<MovementData>, RefRO<PlayerInputs>, RefRW<LocalTransform>>())
+        foreach (var (movementData, modifierData, inputs, transform) in 
+                 SystemAPI.Query<RefRW<MovementData>, RefRO<MovementModifier>, RefRO<PlayerInputs>, RefRW<LocalTransform>>())
         {
+
+            var moveModifier = modifierData.ValueRO.MoveSpeedModifier;
+            var accelerationModifier = modifierData.ValueRO.AccelerationModifier;
+
+            var modifiedAcceleration = (movementData.ValueRO.Acceleration * accelerationModifier.MultiplyMod) + accelerationModifier.AdditiveMod;
+            var modifiedMaxSpeed = (movementData.ValueRO.MaxMoveSpeed * moveModifier.MultiplyMod) + moveModifier.AdditiveMod;
+
             var moveDirection = new float3(inputs.ValueRO.moveInput.x, inputs.ValueRO.moveInput.y, 0);
             moveDirection = math.normalizesafe(moveDirection);
 
             if (!moveDirection.Equals(float3.zero))
             {
-                movementData.ValueRW.CurrentMoveDirection += moveDirection * movementData.ValueRO.Acceleration * Time.deltaTime;
+                movementData.ValueRW.CurrentMoveDirection += moveDirection * modifiedAcceleration * Time.deltaTime;
             }
             else
             {
@@ -43,10 +50,10 @@ partial struct PlayerMoveSystem : ISystem
             }
 
             float currentSpeed = math.length(movementData.ValueRO.CurrentMoveDirection);
-            if (currentSpeed > movementData.ValueRO.MaxMoveSpeed)
+            if (currentSpeed > modifiedMaxSpeed)
             {
                 movementData.ValueRW.CurrentMoveDirection = (movementData.ValueRO.CurrentMoveDirection / currentSpeed) *
-                                                            movementData.ValueRO.MaxMoveSpeed;
+                                                            modifiedMaxSpeed;
             }
 
             transform.ValueRW = transform.ValueRW.Translate(movementData.ValueRW.CurrentMoveDirection * Time.deltaTime);

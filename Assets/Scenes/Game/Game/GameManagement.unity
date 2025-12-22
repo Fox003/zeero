@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 1146609698}
   - component: {fileID: 1146609697}
   m_Layer: 0
-  m_Name: GameFSMEntity
+  m_Name: GameFSM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 1516134366}
   - component: {fileID: 1516134365}
   m_Layer: 0
-  m_Name: GameDataEntity
+  m_Name: GameData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,8 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab7fe7df4f5349bebe7aa1f95d22f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxGameTime: 13.1
-  InitialGameState: 1
+  MaxGameTime: 42.8
 --- !u!4 &1516134366
 Transform:
   m_ObjectHideFlags: 0

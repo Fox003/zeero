@@ -16,11 +16,6 @@ public struct LookData : IComponentData
     public float lastAngle;
 }
 
-public struct WeaponData : IComponentData
-{
-    
-}
-
 public struct HealthData : IComponentData
 {
     public float MaxHealth;
