@@ -27,36 +27,36 @@ partial struct PlayerMoveSystem : ISystem
         if (gameState.Type != GameFSMStates.FIGHTING_STATE)
             return;
         
-        foreach (var (movementData, modifierData, inputs, transform) in 
-                 SystemAPI.Query<RefRW<MovementData>, RefRO<MovementModifier>, RefRO<PlayerInputs>, RefRW<LocalTransform>>())
+        foreach (var (movementState, modData, inputs, transform, baseStats) in 
+                 SystemAPI.Query<RefRW<MovementState>, RefRO<PlayerStatsModifiers>, RefRO<PlayerInputs>, RefRW<LocalTransform>, RefRO<PlayerBaseStats>>())
         {
+            var movementBaseStats = baseStats.ValueRO.MovementStats;
+            var movementModStats = modData.ValueRO.MovementStatsModifiers;
 
-            var moveModifier = modifierData.ValueRO.MoveSpeedModifier;
-            var accelerationModifier = modifierData.ValueRO.AccelerationModifier;
-
-            var modifiedAcceleration = (movementData.ValueRO.Acceleration * accelerationModifier.MultiplyMod) + accelerationModifier.AdditiveMod;
-            var modifiedMaxSpeed = (movementData.ValueRO.MaxMoveSpeed * moveModifier.MultiplyMod) + moveModifier.AdditiveMod;
+            var modifiedAcceleration = ModifierUtils.CalculateModifiedStat(movementBaseStats.Acceleration, movementModStats.AccelerationModifier);
+            var modifiedMaxSpeed = ModifierUtils.CalculateModifiedStat(movementBaseStats.MaxMoveSpeed, movementModStats.MaxMoveSpeedModifier);
+            var modifiedDrag = ModifierUtils.CalculateModifiedStat(movementBaseStats.Drag, movementModStats.DragModifier); ;
 
             var moveDirection = new float3(inputs.ValueRO.moveInput.x, inputs.ValueRO.moveInput.y, 0);
             moveDirection = math.normalizesafe(moveDirection);
 
             if (!moveDirection.Equals(float3.zero))
             {
-                movementData.ValueRW.CurrentMoveDirection += moveDirection * modifiedAcceleration * Time.deltaTime;
+                movementState.ValueRW.CurrentMoveDirection += moveDirection * modifiedAcceleration * Time.deltaTime;
             }
             else
             {
-                movementData.ValueRW.CurrentMoveDirection *= (1f - movementData.ValueRO.Drag * SystemAPI.Time.DeltaTime);
+                movementState.ValueRW.CurrentMoveDirection *= (1f - movementBaseStats.Drag * SystemAPI.Time.DeltaTime);
             }
 
-            float currentSpeed = math.length(movementData.ValueRO.CurrentMoveDirection);
+            float currentSpeed = math.length(movementState.ValueRO.CurrentMoveDirection);
             if (currentSpeed > modifiedMaxSpeed)
             {
-                movementData.ValueRW.CurrentMoveDirection = (movementData.ValueRO.CurrentMoveDirection / currentSpeed) *
+                movementState.ValueRW.CurrentMoveDirection = (movementState.ValueRO.CurrentMoveDirection / currentSpeed) *
                                                             modifiedMaxSpeed;
             }
 
-            transform.ValueRW = transform.ValueRW.Translate(movementData.ValueRW.CurrentMoveDirection * Time.deltaTime);
+            transform.ValueRW = transform.ValueRW.Translate(movementState.ValueRW.CurrentMoveDirection * Time.deltaTime);
         }
     }
 

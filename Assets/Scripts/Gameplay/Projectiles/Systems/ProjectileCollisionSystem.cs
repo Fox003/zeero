@@ -14,13 +14,13 @@ partial struct ProjectileCollisionSystem : ISystem
     internal struct ComponentDataHandles
     {
         public ComponentLookup<ProjectileDamageData> ProjectileDamageLookup;
-        public ComponentLookup<HealthData> HealthLookup;
+        public ComponentLookup<HealthState> HealthLookup;
         public ComponentLookup<ProjectileDestroyRequest> DestroyRequestLookup;
 
         public ComponentDataHandles(ref SystemState systemState)
         {
             ProjectileDamageLookup = systemState.GetComponentLookup<ProjectileDamageData>(true);
-            HealthLookup = systemState.GetComponentLookup<HealthData>(false);
+            HealthLookup = systemState.GetComponentLookup<HealthState>(false);
             DestroyRequestLookup = systemState.GetComponentLookup<ProjectileDestroyRequest>(false);
         }
 
@@ -69,7 +69,7 @@ partial struct ProjectileCollisionSystem : ISystem
 public partial struct ProjectileCollisionJob : ICollisionEventsJob
 {
     [ReadOnly] public ComponentLookup<ProjectileDamageData> ProjectileDamageLookup;
-    public ComponentLookup<HealthData> HealthLookup;
+    public ComponentLookup<HealthState> HealthLookup;
     public ComponentLookup<ProjectileDestroyRequest> DestroyRequestLookup;
     public EntityCommandBuffer.ParallelWriter ECB;
     

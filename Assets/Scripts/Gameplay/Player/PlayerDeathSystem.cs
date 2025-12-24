@@ -15,8 +15,8 @@ partial struct PlayerDeathSystem : ISystem
     {
         //var gameConditions = SystemAPI.GetSingletonRW<GameConditions>();
 
-        foreach (var entityHealth in SystemAPI.Query<RefRO<HealthData>>()
-            .WithChangeFilter<HealthData>())
+        foreach (var entityHealth in SystemAPI.Query<RefRO<HealthState>>()
+            .WithChangeFilter<HealthState>())
         {
             if (entityHealth.ValueRO.CurrentHealth < 0f)
             {

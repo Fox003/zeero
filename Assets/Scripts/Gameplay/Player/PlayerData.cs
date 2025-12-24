@@ -2,25 +2,48 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-public struct MovementData : IComponentData
+public struct PlayerBaseStats : IComponentData
+{
+    public MovementStats MovementStats;
+    public HealthStats HealthStats;
+}
+
+
+[System.Serializable]
+public struct MovementStats
 {
     public float MaxMoveSpeed;
     public float Acceleration;
     public float Drag;
+}
+
+[System.Serializable]
+public struct HealthStats
+{
+    public float MaxHealth;
+    public float MaxShield;
+}
+
+
+public struct MovementState : IComponentData
+{
     public float3 DesiredMoveDirection;
     public float3 CurrentMoveDirection;
 }
 
+public struct HealthState : IComponentData
+{
+    public float CurrentHealth;
+    public float CurrentShield;
+}
+
+
+
+// -----------------------------------------------------
+
 public struct LookData : IComponentData
 {
     public float lastAngle;
-}
-
-public struct HealthData : IComponentData
-{
-    public float MaxHealth;
-    public float CurrentHealth;
-    public float MaxShield;
 }
 
 public struct PlayerInputs : IComponentData, IEnableableComponent
@@ -51,9 +74,5 @@ public struct CooldownData : IComponentData
     public float CurrentCooldownTime;
 }
 
-public struct EntitySpawnRequest : IComponentData, IEnableableComponent
-{
-    
-}
 
 public struct PlayerNeedsInputAssociation : IComponentData, IEnableableComponent { }

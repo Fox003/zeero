@@ -13,27 +13,22 @@ class ModifiersAuthoringBaker : Baker<PlayerModifiersAuthoring>
     {
         var entity = GetEntity(TransformUsageFlags.Dynamic);
 
-        AddComponent(entity, new MovementModifier()
+        AddComponent(entity, new PlayerStatsModifiers()
         {
-            AccelerationModifier = new Modifier() 
-            { 
-                AdditiveMod = authoring.DefaultAdditiveModifierValue, 
-                MultiplyMod = authoring.DefaultMultiplyModifierValue 
-            },
-            MoveSpeedModifier = new Modifier()
+            MovementStatsModifiers = new MovementModifiers()
             {
-                AdditiveMod = authoring.DefaultAdditiveModifierValue,
-                MultiplyMod = authoring.DefaultMultiplyModifierValue
+                MaxMoveSpeedModifier = new Modifier(),
+                AccelerationModifier = new Modifier(),
+                DragModifier = new Modifier(),
             },
+
+            HealthStatsModifiers = new HealthModifiers()
+            {
+                MaxHealthModifier = new Modifier(),
+                MaxShieldModifier = new Modifier(),
+            }
         });
 
-        AddComponent(entity, new WeaponModifier()
-        {
-            CooldownModifier = new Modifier()
-            {
-                AdditiveMod = authoring.DefaultAdditiveModifierValue,
-                MultiplyMod = authoring.DefaultMultiplyModifierValue
-            },
-        });
+        AddComponent<ActiveModifier>(entity);
     }
 }

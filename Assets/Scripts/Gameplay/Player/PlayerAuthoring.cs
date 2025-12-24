@@ -30,8 +30,6 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
 
         AddComponent<PlayerNeedsInputAssociation>(entity);
         AddComponent<LookData>(entity);
-        AddComponent<EntitySpawnRequest>(entity);
-        SetComponentEnabled<EntitySpawnRequest>(entity,false);
         
         AddComponentObject(entity, new ControllerReference());
 
@@ -41,13 +39,26 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         {
             moveInput = new float2(0, 0),
         });
+
+        AddComponent(entity, new PlayerBaseStats()
+        {
+            MovementStats = new MovementStats() 
+            {
+                MaxMoveSpeed = authoring.MaxMoveSpeed,
+                Acceleration = authoring.Acceleration,
+                Drag = authoring.Drag,
+            },
+
+            HealthStats = new HealthStats()
+            {
+                MaxHealth = authoring.MaxHealth,
+                MaxShield = 0,
+            }
+        });
         
-        AddComponent(entity, new MovementData()
+        AddComponent(entity, new MovementState()
         { 
-            MaxMoveSpeed = authoring.MaxMoveSpeed,
-            Acceleration =  authoring.Acceleration,
-            CurrentMoveDirection= float3.zero,
-            Drag = authoring.Drag,
+            CurrentMoveDirection = float3.zero,
             DesiredMoveDirection = float3.zero
         });
         
@@ -62,10 +73,10 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
             }
         });
         
-        AddComponent(entity, new HealthData()
+        AddComponent(entity, new HealthState()
         {
-            MaxHealth = authoring.MaxHealth,
-            CurrentHealth = authoring.MaxHealth
+            CurrentHealth = authoring.MaxHealth,
+            CurrentShield = 0
         });
     }
 }
