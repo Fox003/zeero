@@ -16,11 +16,13 @@ partial struct ProjectileMovementSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (movementData, transform, entity) in SystemAPI
-                     .Query<RefRO<ProjectileMovementData>, RefRW<LocalTransform>>().WithEntityAccess())
+        foreach (var (projectileData, transform, entity) in SystemAPI
+                     .Query<RefRO<ProjectileData>, 
+                     RefRW<LocalTransform>>()
+                     .WithEntityAccess())
         {
             float3 forward = math.mul(transform.ValueRO.Rotation, new float3(-1, 0, 0));
-            transform.ValueRW = transform.ValueRW.Translate(forward * movementData.ValueRO.MovementSpeed * SystemAPI.Time.DeltaTime);
+            transform.ValueRW = transform.ValueRW.Translate(forward * projectileData.ValueRO.MovementSpeed * SystemAPI.Time.DeltaTime);
         }
     }
 

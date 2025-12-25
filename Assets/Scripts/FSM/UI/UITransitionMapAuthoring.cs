@@ -34,7 +34,7 @@ class UITransitionMapAuthoringBaker : Baker<UITransitionMapAuthoring>
         
         AddComponent(entity, new UIStateTransitionMap()
         {
-            Transitions = FSMUtilities.CreateTransitionMapBlobAssetReference(transitionPairs)
+            Transitions = BlobUtils.CreateBlobArrayRefFromList(transitionPairs)
         });
     }
 }

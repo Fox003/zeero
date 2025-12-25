@@ -4,7 +4,7 @@ using Unity.Entities;
 
 public struct UIStateTransitionMap : IComponentData
 {
-    public BlobAssetReference<TransitionMapBlob> Transitions;
+    public BlobAssetReference<BlobArray<TransitionPair>> Transitions;
 }
 
 

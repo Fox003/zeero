@@ -3,39 +3,17 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct ProjectileMovementData : IComponentData
+public struct ProjectileData : IComponentData
 {
-    public float3 TargetPosition;
-    public MovementBehavior MovementBehavior;
     public float MovementSpeed;
-    public float3 direction;
-}
-
-public enum MovementBehavior
-{
-    Straight,
-    Cosine,
-}
-
-public struct ProjectileDeathData : IComponentData
-{
-    public bool slay;
-}
-
-public struct ProjectileSpawnData : IComponentData
-{
-    
-}
-
-public struct ProjectileLifeData : IComponentData
-{
     public float Lifetime;
-    public float CurrentLifetime;
+    public float Damage;
 }
 
-public struct ProjectileDamageData : IComponentData
+public struct ProjectileState : IComponentData
 {
-    public float Damage;
+    public float3 direction;
+    public float CurrentLifetime;
 }
 
 public struct DamageRequest: IComponentData {}

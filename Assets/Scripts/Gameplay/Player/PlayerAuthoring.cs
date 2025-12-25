@@ -9,12 +9,21 @@ class PlayerAuthoring : MonoBehaviour
     public float Acceleration;
     public float Drag;
 
+    [Header("Vitals")]
     public float MaxHealth;
-    
-    [Header("Shooting")]
-    public float ShootCooldown;
-    public GameObject defaultProjectile;
+    public float MaxShield;
+
+    [Header("Weapon")]
+    public float Cooldown;
+    public float Damage;
     public Transform ShootTransform;
+
+    [Header("Projectile")]
+    public GameObject Projectile;
+    public float ProjectileSpeed;
+    public float ProjectileSize;
+    public float ProjectileDuration;
+
 }
 
 
@@ -23,7 +32,7 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
     public override void Bake(PlayerAuthoring authoring)
     {
         var entity = GetEntity(TransformUsageFlags.Dynamic);
-        var proj = GetEntity(authoring.defaultProjectile, TransformUsageFlags.Dynamic);
+        var proj = GetEntity(authoring.Projectile, TransformUsageFlags.Dynamic);
         var shootTransform = GetEntity(authoring.ShootTransform, TransformUsageFlags.Dynamic);
         
         // TAGS
@@ -52,7 +61,16 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
             HealthStats = new HealthStats()
             {
                 MaxHealth = authoring.MaxHealth,
-                MaxShield = 0,
+                MaxShield = authoring.MaxShield,
+            },
+
+            WeaponStats = new WeaponStats()
+            {
+                ProjectileSize = authoring.ProjectileSize,
+                ProjectileSpeed = authoring.ProjectileSpeed,
+                CooldownTime = authoring.Cooldown,
+                Damage = authoring.Damage,
+                ProjectileLifetime = authoring.ProjectileDuration
             }
         });
         
@@ -61,22 +79,17 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
             CurrentMoveDirection = float3.zero,
             DesiredMoveDirection = float3.zero
         });
-        
-        AddComponent(entity, new GunData()
+
+        AddComponent(entity, new WeaponState()
         {
-            ShootPosition = shootTransform,
             CurrentProjectile = proj,
-            CooldownData = new CooldownData()
-            {
-                CooldownTime = authoring.ShootCooldown,
-                CurrentCooldownTime = 0
-            }
+            ShootPosition = shootTransform
         });
         
         AddComponent(entity, new HealthState()
         {
             CurrentHealth = authoring.MaxHealth,
-            CurrentShield = 0
+            CurrentShield = authoring.MaxShield
         });
     }
 }

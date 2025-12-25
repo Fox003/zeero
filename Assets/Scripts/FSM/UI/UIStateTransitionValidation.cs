@@ -26,7 +26,7 @@ partial struct UIStateTransitionValidation : ISystem
         ComponentType currentState = SystemAPI.GetComponent<CurrentStateType>(uiFsm).Type;
         
         // Checking if the transition that is requested is valid
-        FSMUtilities.ValidateTransition(ref removeBuffer, ref addBuffer, ref uiTransitionMap.Transitions.Value.Pairs, currentState, uiFsm);
+        FSMUtilities.ValidateTransition(ref removeBuffer, ref addBuffer, ref uiTransitionMap.Transitions.Value, currentState, uiFsm);
         
     }
 

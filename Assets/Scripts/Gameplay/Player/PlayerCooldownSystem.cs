@@ -12,16 +12,18 @@ partial struct PlayerCooldownSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var gunData in SystemAPI.Query<RefRW<GunData>>())
+        foreach (var (weaponState, playerStats) in SystemAPI.Query<RefRW<WeaponState>, RefRO<PlayerBaseStats>>())
         {
-            if (gunData.ValueRO.CooldownData.CurrentCooldownTime < gunData.ValueRO.CooldownData.CooldownTime)
+            var weaponStats = playerStats.ValueRO.WeaponStats;
+
+            if (weaponState.ValueRO.CooldownData.CurrentCooldownTime < weaponStats.CooldownTime)
             {
-                gunData.ValueRW.CooldownData.CurrentCooldownTime += SystemAPI.Time.DeltaTime;
-                gunData.ValueRW.CooldownData.isOnCooldown = true;
+                weaponState.ValueRW.CooldownData.CurrentCooldownTime += SystemAPI.Time.DeltaTime;
+                weaponState.ValueRW.CooldownData.isOnCooldown = true;
             }
             else
             {
-                gunData.ValueRW.CooldownData.isOnCooldown = false;
+                weaponState.ValueRW.CooldownData.isOnCooldown = false;
             }
         }
     }

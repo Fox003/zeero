@@ -26,22 +26,38 @@ partial struct PlayerShootSystem : ISystem
         var ecbSystem = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
         var ecb = ecbSystem.CreateCommandBuffer(state.WorldUnmanaged);
         
-        foreach (var (input, gunData, entity) in SystemAPI.Query<RefRO<PlayerInputs>, RefRW<GunData>>().WithEntityAccess())
+        foreach (var (input, playerStats, weaponState, modifiers, entity) in SystemAPI
+            .Query<RefRO<PlayerInputs>, 
+            RefRO<PlayerBaseStats>, 
+            RefRW<WeaponState>, 
+            RefRO<PlayerStatsModifiers>>().WithEntityAccess())
         {
+            var weaponStats = playerStats.ValueRO.WeaponStats;
+            var weaponMods = modifiers.ValueRO.WeaponStatsModifiers;
+
             if (input.ValueRO.PrimaryFire &&
-                !gunData.ValueRO.CooldownData.isOnCooldown &&
-                gunData.ValueRO.CurrentProjectile != Entity.Null)
+                !weaponState.ValueRO.CooldownData.isOnCooldown &&
+                weaponState.ValueRO.CurrentProjectile != Entity.Null)
             {
-                var spawnedEntity = ecb.Instantiate(gunData.ValueRO.CurrentProjectile);
-                var shootPosTransform = SystemAPI.GetComponent<LocalToWorld>(gunData.ValueRO.ShootPosition);
+                var spawnedEntity = ecb.Instantiate(weaponState.ValueRO.CurrentProjectile);
+                var shootPosTransform = SystemAPI.GetComponent<LocalToWorld>(weaponState.ValueRO.ShootPosition);
+
                 ecb.SetComponent(spawnedEntity, new LocalTransform()
                 {
                     Position = shootPosTransform.Position,
                     Rotation = shootPosTransform.Rotation,
-                    Scale = 1
+                    Scale = ModifierUtils.CalculateModifiedStat(weaponStats.ProjectileSize, weaponMods.ProjectileSizeModifier)
                 });
 
-                gunData.ValueRW.CooldownData.CurrentCooldownTime = 0;
+                ecb.SetComponent(spawnedEntity, new ProjectileData()
+                {
+                    MovementSpeed = ModifierUtils.CalculateModifiedStat(weaponStats.ProjectileSpeed, weaponMods.ProjectileSpeedModifier),
+                    Lifetime = ModifierUtils.CalculateModifiedStat(weaponStats.ProjectileLifetime, weaponMods.ProjectileLifetimeModifier),
+                    Damage = ModifierUtils.CalculateModifiedStat(weaponStats.Damage, weaponMods.DamageModifier)
+                });
+
+
+                weaponState.ValueRW.CooldownData.CurrentCooldownTime = 0;
             }
         }
     }

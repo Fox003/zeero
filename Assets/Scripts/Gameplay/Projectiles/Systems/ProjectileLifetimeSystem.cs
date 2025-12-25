@@ -2,31 +2,28 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 partial struct ProjectileLifetimeSystem : ISystem
 {
-    public ComponentLookup<ProjectileDestroyRequest> _destroyRequestLookup;
-    private EntityQuery _projectiles;
 
     public void OnCreate(ref SystemState state)
     {
-        _projectiles = state.GetEntityQuery(ComponentType.ReadWrite<ProjectileLifeData>());
-        _destroyRequestLookup = state.GetComponentLookup<ProjectileDestroyRequest>(false);
+        
     }
 
     public void OnUpdate(ref SystemState state)
     {
-        float dt = SystemAPI.Time.DeltaTime;
-        
-        _destroyRequestLookup.Update(ref state);
-
-        var job = new ProjectileLifeJob
+        foreach (var (projState, projData, entity) in SystemAPI.Query<RefRW<ProjectileState>, RefRO<ProjectileData>>().WithEntityAccess())
         {
-            DestroyRequestLookup = _destroyRequestLookup,
-            DeltaTime = dt,
-        };
 
-        state.Dependency = job.Schedule(_projectiles, state.Dependency);
+            projState.ValueRW.CurrentLifetime += SystemAPI.Time.DeltaTime;
+
+            if (projState.ValueRO.CurrentLifetime >= projData.ValueRO.Lifetime)
+            {
+                SystemAPI.SetComponentEnabled<ProjectileDestroyRequest>(entity, true);
+            }
+        }
     }
     
     public partial struct ProjectileLifeJob : IJobEntity
@@ -35,11 +32,11 @@ partial struct ProjectileLifetimeSystem : ISystem
         public EntityCommandBuffer.ParallelWriter ECB;
         public float DeltaTime;
 
-        private void Execute(Entity entity, ref ProjectileLifeData life)
+        private void Execute(Entity entity, ref ProjectileState life, ref ProjectileData projData)
         {
             life.CurrentLifetime += DeltaTime;
             
-            if (life.CurrentLifetime >= life.Lifetime)
+            if (life.CurrentLifetime >= projData.Lifetime)
             {
                 DestroyRequestLookup.SetComponentEnabled(entity, true);
             }

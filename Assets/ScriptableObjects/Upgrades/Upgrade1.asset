@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af6c190894c5e544af4c6732e66b732, type: 3}
-  m_Name: Upgrade
+  m_Name: Upgrade1
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
-  Name: Cool Upgrade
-  Rarity: 2
+  Name: Upgrade 1
   Description: Bruh type shit bro
+  Rarity: 2
+  Duration: -1
   Modifiers:
     MovementStatsModifiers:
       MaxMoveSpeedModifier:
         AdditiveMod: 0
-        MultiplyMod: 0
+        MultiplyMod: 0.02
       AccelerationModifier:
         AdditiveMod: 0
-        MultiplyMod: 0
+        MultiplyMod: 2
       DragModifier:
         AdditiveMod: 0
-        MultiplyMod: 0
+        MultiplyMod: -0.05
     HealthStatsModifiers:
       MaxHealthModifier:
-        AdditiveMod: 0
+        AdditiveMod: 25
         MultiplyMod: 0
       MaxShieldModifier:
         AdditiveMod: 0

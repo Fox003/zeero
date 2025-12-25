@@ -6,6 +6,7 @@ public struct PlayerBaseStats : IComponentData
 {
     public MovementStats MovementStats;
     public HealthStats HealthStats;
+    public WeaponStats WeaponStats;
 }
 
 
@@ -22,6 +23,23 @@ public struct HealthStats
 {
     public float MaxHealth;
     public float MaxShield;
+}
+
+[System.Serializable]
+public struct WeaponStats
+{
+    public float CooldownTime;
+    public float ProjectileSpeed;
+    public float ProjectileSize;
+    public float ProjectileLifetime;
+    public float Damage;
+}
+
+public struct WeaponState : IComponentData
+{
+    public CooldownData CooldownData;
+    public Entity CurrentProjectile;
+    public Entity ShootPosition;
 }
 
 
@@ -60,17 +78,9 @@ public class ControllerReference : IComponentData
     public PlayerInputReference PlayerInputRef;
 }
 
-public struct GunData : IComponentData
-{
-    public Entity CurrentProjectile;
-    public Entity ShootPosition;
-    public CooldownData CooldownData;
-}
-
 public struct CooldownData : IComponentData
 {
     public bool isOnCooldown;
-    public float CooldownTime;
     public float CurrentCooldownTime;
 }
 

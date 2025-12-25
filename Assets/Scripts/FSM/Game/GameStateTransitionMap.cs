@@ -2,6 +2,6 @@ using Unity.Entities;
 
 public struct GameStateTransitionMap : IComponentData
 {
-    public BlobAssetReference<TransitionMapBlob> Transitions;
+    public BlobAssetReference<BlobArray<TransitionPair>> Transitions;
     
 }

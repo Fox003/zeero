@@ -3,7 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-partial struct UpgradeApplySystem : ISystem
+[UpdateInGroup(typeof(InitializationSystemGroup))]
+partial struct PlayerStatModifierSystem : ISystem
 {
     [BurstCompile]
     public void OnCreate(ref SystemState state)
@@ -14,13 +15,14 @@ partial struct UpgradeApplySystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (mods, activeMods) in SystemAPI.Query<RefRW<PlayerStatsModifiers>, DynamicBuffer<ActiveModifier>>())
+        foreach (var (playerMods, activeMods) in SystemAPI.Query<RefRW<PlayerStatsModifiers>, DynamicBuffer<ActiveModifier>>())
         {
-            mods.ValueRW.Reset();
+            playerMods.ValueRW.Reset();
 
             foreach (var activeMod in activeMods)
             {
-                mods.ValueRW.Add(activeMod.StatMods);
+                playerMods.ValueRW.Add(activeMod.StatMods);
+                playerMods.ValueRW.Scale(activeMod.Count);
             }
         }
     }

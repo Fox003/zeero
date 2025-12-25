@@ -27,7 +27,7 @@ class GameStateTransitionMapAuthoringBaker : Baker<GameStateTransitionMapAuthori
         
         AddComponent(entity, new GameStateTransitionMap()
         {
-            Transitions = FSMUtilities.CreateTransitionMapBlobAssetReference(transitionPairs)
+            Transitions = BlobUtils.CreateBlobArrayRefFromList(transitionPairs)
         });
     }
 }

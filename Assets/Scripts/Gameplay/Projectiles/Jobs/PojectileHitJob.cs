@@ -5,7 +5,7 @@ using UnityEngine;
 
 public partial struct ProjectileHitJob : ICollisionEventsJob
 {
-    [ReadOnly] public ComponentLookup<ProjectileDamageData> ProjectileDamageLookup;
+    [ReadOnly] public ComponentLookup<ProjectileData> ProjectileDamageLookup;
     public ComponentLookup<HealthState> HealthLookup;
     public EntityCommandBuffer.ParallelWriter ECB;
 

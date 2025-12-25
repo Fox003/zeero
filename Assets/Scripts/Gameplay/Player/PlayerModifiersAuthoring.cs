@@ -3,8 +3,7 @@ using UnityEngine;
 
 class PlayerModifiersAuthoring : MonoBehaviour
 {
-    public float DefaultAdditiveModifierValue = 0f;
-    public float DefaultMultiplyModifierValue = 1f;
+    
 }
 
 class ModifiersAuthoringBaker : Baker<PlayerModifiersAuthoring>

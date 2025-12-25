@@ -43,7 +43,7 @@ public static class FSMUtilities
         }
     }
 
-    public static BlobAssetReference<TransitionMapBlob> CreateTransitionMapBlobAssetReference(List<TransitionPair> transitionPairs)
+    /*public static BlobAssetReference<TransitionMapBlob> CreateTransitionMapBlobAssetReference(List<TransitionPair> transitionPairs)
     {
         var builder = new BlobBuilder(Allocator.Temp);
         ref var root = ref builder.ConstructRoot<TransitionMapBlob>();
@@ -56,7 +56,7 @@ public static class FSMUtilities
         builder.Dispose();
         
         return blobRef;
-    }
+    }*/
     
     public static void SetComponentStateReflectively(
         IBaker baker, 

@@ -35,7 +35,7 @@ partial struct PlayerMoveSystem : ISystem
 
             var modifiedAcceleration = ModifierUtils.CalculateModifiedStat(movementBaseStats.Acceleration, movementModStats.AccelerationModifier);
             var modifiedMaxSpeed = ModifierUtils.CalculateModifiedStat(movementBaseStats.MaxMoveSpeed, movementModStats.MaxMoveSpeedModifier);
-            var modifiedDrag = ModifierUtils.CalculateModifiedStat(movementBaseStats.Drag, movementModStats.DragModifier); ;
+            var modifiedDrag = ModifierUtils.CalculateModifiedStat(movementBaseStats.Drag, movementModStats.DragModifier);
 
             var moveDirection = new float3(inputs.ValueRO.moveInput.x, inputs.ValueRO.moveInput.y, 0);
             moveDirection = math.normalizesafe(moveDirection);
