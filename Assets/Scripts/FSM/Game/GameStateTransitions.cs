@@ -1,5 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 [UpdateInGroup(typeof(LateSimulationSystemGroup))]
@@ -26,11 +28,29 @@ partial struct GameStateTransitions : ISystem
             {
                 var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
                 var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
+                var gameData = SystemAPI.GetSingleton<GameData>();
+                var upgradePickerEntity = SystemAPI.GetSingletonEntity<CurrentUpgrades>();
 
-                var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-                var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
+                foreach (var (player, movement, weapon, health, stats, playerEntity) in
+                         SystemAPI.Query<Player, RefRW<MovementState>, RefRW<WeaponState>, RefRW<HealthState>, PlayerBaseStats>()
+                         .WithEntityAccess())
+                {
+                    float3 startPos = (player.PlayerID == 2) ? gameData.player1StartPos : gameData.player2StartPos;
+                    SetPlayerPosition(playerEntity, startPos, ref state);
 
-                GameFSMUtilities.OnInitStateEnter(uiFsm, gameFSM, uiAddBuffer, gameAddBuffer);
+                    movement.ValueRW.Reset();
+                    weapon.ValueRW.Reset();
+                    health.ValueRW.Reset(stats);
+
+                    SystemAPI.SetComponentEnabled<RequestUpgradeRollTag>(upgradePickerEntity, true);
+                }
+
+                GameFSMUtilities.OnInitChangeGameState(
+                    uiFsm,
+                    gameFSM,
+                    SystemAPI.GetBuffer<EnableStateRequest>(uiFsm),
+                    SystemAPI.GetBuffer<EnableStateRequest>(gameFSM)
+                );
             }
             // OnEnter GameStateFighting
             else if (SystemAPI.IsComponentEnabled<GameStateFighting>(entity))
@@ -43,7 +63,14 @@ partial struct GameStateTransitions : ISystem
         }
     }
 
-    
+    private void SetPlayerPosition(Entity player, float3 position, ref SystemState state)
+    {
+        var transform = SystemAPI.GetComponent<LocalTransform>(player);
+
+        transform.Position = position;
+
+        SystemAPI.SetComponent(player, transform);
+    }
 
     [BurstCompile]
     public void OnDestroy(ref SystemState state)

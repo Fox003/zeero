@@ -1,4 +1,5 @@
 using Unity.Entities;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
@@ -123,7 +124,10 @@ public struct WeaponModifiers
 [System.Serializable]
 public struct Modifier
 {
+    [Tooltip("Absolute amount added or removed")]
     public float AdditiveMod;
+
+    [Tooltip("Amount added or removed in %")]
     public float MultiplyMod;
 
     public void Add(Modifier other)

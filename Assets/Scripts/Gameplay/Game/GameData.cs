@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 
 public struct GameData : IComponentData
 {
-    public PlayerData Players;
+    public float3 player1StartPos;
+    public float3 player2StartPos;
 }
 
 public struct InGameState : IComponentData, IEnableableComponent {}

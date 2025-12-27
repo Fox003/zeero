@@ -25,6 +25,7 @@ class UIAuthoringBaker : Baker<UIAuthoring>
         });
         
         AddComponentObject(entity, new GameFightingViewModel());
+        AddComponentObject(entity, new GameUpgradesViewModel());
     }
 }
 

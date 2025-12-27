@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Users;
+using static UnityEngine.EventSystems.EventTrigger;
 
 partial struct InputInitialization : ISystem, ISystemStartStop
 {
@@ -55,10 +56,21 @@ partial struct InputInitialization : ISystem, ISystemStartStop
             entityManager.SetName(inputEntity, $"InputUser {InputUser.listenForUnpairedDeviceActivity}");
             entityManager.AddComponentObject(inputEntity, new PlayerInputReference()
             {
+                PlayerID = InputUser.listenForUnpairedDeviceActivity,
                 PlayerInput = playerInput,
                 Device = control.device
             });
-            
+
+            switch (InputUser.listenForUnpairedDeviceActivity)
+            {
+                case 2:
+                    entityManager.AddComponent<Player1Tag>(inputEntity);
+                    break;
+                case 1:
+                    entityManager.AddComponent<Player2Tag>(inputEntity);
+                    break;
+            }
+
             entityManager.AddComponent<PlayerInputNeedsAssociation>(inputEntity);
             
             InputUser.listenForUnpairedDeviceActivity--;

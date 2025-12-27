@@ -1,6 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 public struct PlayerBaseStats : IComponentData
 {
@@ -40,6 +41,11 @@ public struct WeaponState : IComponentData
     public CooldownData CooldownData;
     public Entity CurrentProjectile;
     public Entity ShootPosition;
+
+    public void Reset()
+    {
+        this.CooldownData.Reset();
+    }    
 }
 
 
@@ -47,12 +53,24 @@ public struct MovementState : IComponentData
 {
     public float3 DesiredMoveDirection;
     public float3 CurrentMoveDirection;
+
+    public void Reset()
+    {
+        this.DesiredMoveDirection = new float3(0);
+        this.CurrentMoveDirection = new float3(0);
+    }
 }
 
 public struct HealthState : IComponentData
 {
     public float CurrentHealth;
     public float CurrentShield;
+
+    public void Reset(PlayerBaseStats stats)
+    {
+        this.CurrentHealth = stats.HealthStats.MaxHealth;
+        this.CurrentShield = stats.HealthStats.MaxShield;
+    }
 }
 
 
@@ -73,6 +91,11 @@ public struct PlayerInputs : IComponentData, IEnableableComponent
     public bool PrimaryFire;
 }
 
+public struct Player : IComponentData
+{
+    public int PlayerID;
+}
+
 public class ControllerReference : IComponentData
 {
     public PlayerInputReference PlayerInputRef;
@@ -82,6 +105,12 @@ public struct CooldownData : IComponentData
 {
     public bool isOnCooldown;
     public float CurrentCooldownTime;
+
+    public void Reset()
+    {
+        isOnCooldown = false;
+        CurrentCooldownTime = 0;
+    }
 }
 
 

@@ -174,7 +174,7 @@ MonoBehaviour:
   MaxMoveSpeed: 5
   Acceleration: 2.5
   Drag: 1
-  MaxHealth: 100
+  MaxHealth: 5
   MaxShield: 50
   Cooldown: 1
   Damage: 10

@@ -1,7 +1,7 @@
-using System;
 using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 partial struct UISystem : ISystem
 {
@@ -18,6 +18,7 @@ partial struct UISystem : ISystem
         var gameFsm = SystemAPI.GetSingletonEntity<GameFSM>();
         var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
 
+        // UI State change event
         foreach (var (stateChangeEvent, eventTag) in SystemAPI.Query<RefRO<UIStateChangeEvent>, RefRO<UIEvent>>())
         {
             var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFsm);
@@ -37,6 +38,35 @@ partial struct UISystem : ISystem
                 StateToEnable = stateChangeEvent.ValueRO.NewUIState
             });
         }
+
+        // Add upgrade to player event
+        foreach (var (addUpgradeEvent, eventTag) in SystemAPI.Query<RefRO<AddUpgradeToPlayerEvent>, RefRO<UIEvent>>())
+        {
+            var targetID = addUpgradeEvent.ValueRO.PlayerID;
+            var upgradeData = addUpgradeEvent.ValueRO.UpgradeToAdd;
+            Entity targetPlayer = Entity.Null;
+
+            // 2. Find the player with the matching ID
+            // We use QueryBuilder to find the one entity where PlayerIndex.Value == targetID
+            foreach (var (index, entity) in SystemAPI.Query<RefRO<Player>>().WithEntityAccess())
+            {
+                if (index.ValueRO.PlayerID == targetID)
+                {
+                    targetPlayer = entity;
+                    break;
+                }
+            }
+
+            if (targetPlayer != Entity.Null)
+            {
+                var playerModsBuffer = SystemAPI.GetBuffer<ActiveModifier>(targetPlayer);
+                ModifierUtils.AddModifier(playerModsBuffer, upgradeData);
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find Player with ID: {targetID}");
+            }
+        }
     }
 
     [BurstCompile]
@@ -46,16 +76,18 @@ partial struct UISystem : ISystem
     }
 }
 
-public struct UIInterfaceEvent : IComponentData
-{
-    public InterfaceState InterfaceState;
-}
-
 public struct UIStateChangeEvent : IComponentData
 {
     public ComponentType NewGameState;
     public ComponentType NewUIState;
 }
+
+public struct AddUpgradeToPlayerEvent : IComponentData 
+{
+    public UpgradeDefinition UpgradeToAdd;
+    public int PlayerID;
+}
+
 
 public enum InterfaceState
 {

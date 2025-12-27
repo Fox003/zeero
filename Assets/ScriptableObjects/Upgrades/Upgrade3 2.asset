@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af6c190894c5e544af4c6732e66b732, type: 3}
-  m_Name: Upgrade2
+  m_Name: Upgrade3 2
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
-  Name: God Upgrade
-  Description: Very good upgrade
+  Name: LOOOOOL
+  Description: Ass upgrade
   Rarity: 5
   Duration: -1
   Modifiers:
     MovementStatsModifiers:
       MaxMoveSpeedModifier:
         AdditiveMod: 0
-        MultiplyMod: 5
+        MultiplyMod: -0.9
       AccelerationModifier:
         AdditiveMod: 0
-        MultiplyMod: 5
+        MultiplyMod: -0.9
       DragModifier:
         AdditiveMod: 0
-        MultiplyMod: -5
+        MultiplyMod: -0.9
     HealthStatsModifiers:
       MaxHealthModifier:
         AdditiveMod: 0
-        MultiplyMod: 0
+        MultiplyMod: -0.9
       MaxShieldModifier:
         AdditiveMod: 0
-        MultiplyMod: 0
+        MultiplyMod: -0.9

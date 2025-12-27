@@ -13,12 +13,33 @@ public static class GameFSMUtilities
         GameOverState,
     }
 
-    public static void OnInitStateEnter(Entity uiFsm, Entity gameFsm, DynamicBuffer<EnableStateRequest> uiFSMBuffer, DynamicBuffer<EnableStateRequest> gameFSMBuffer)
+    public static void OnInitStateEnter()
     {
         // 1. Load new Map
         // 2. Reset player position
+        // 3. Reset player state components (MovementState, WeaponState, etc.)
 
-        // 3. Change to starting game state when done
+        
+    }
+
+    public static void OnInitLoadNewMap()
+    {
+
+    }
+    
+    public static void OnInitResetPlayerPosition()
+    {
+
+    }
+
+    public static void OnInitResetPlayerStates()
+    {
+
+    }
+
+    public static void OnInitChangeGameState(Entity uiFsm, Entity gameFsm, DynamicBuffer<EnableStateRequest> uiFSMBuffer, DynamicBuffer<EnableStateRequest> gameFSMBuffer)
+    {
+        // 4. Change to starting game state when done
         gameFSMBuffer.Add(new EnableStateRequest()
         {
             Entity = gameFsm,

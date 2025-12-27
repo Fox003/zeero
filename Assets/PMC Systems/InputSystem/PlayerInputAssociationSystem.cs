@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using UnityEngine;
+
 
 partial struct PlayerInputAssociationSystem : ISystem
 {
@@ -30,6 +27,8 @@ partial struct PlayerInputAssociationSystem : ISystem
                 controllerReference.PlayerInputRef = SystemAPI.ManagedAPI.GetComponent<PlayerInputReference>(orphanInputEntities[0]);
                 SystemAPI.SetComponentEnabled<PlayerInputNeedsAssociation>(orphanInputEntities[0], false);
                 SystemAPI.SetComponentEnabled<PlayerNeedsInputAssociation>(entity, false);
+
+                SystemAPI.SetComponent(entity, new Player() { PlayerID = controllerReference.PlayerInputRef.PlayerID });
                 orphanInputEntities.RemoveAt(0);
             }
         }
@@ -37,7 +36,7 @@ partial struct PlayerInputAssociationSystem : ISystem
         orphanInputEntities.Dispose();
     }
 
-    [BurstCompile]
+    
     public void OnDestroy(ref SystemState state)
     {
         

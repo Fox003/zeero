@@ -17,7 +17,6 @@ partial struct UIStateTransitions : ISystem
     {
         var screens = SystemAPI.GetSingletonRW<UIScreens>();
         var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
-        var fightingViewModel = SystemAPI.ManagedAPI.GetSingleton<GameFightingViewModel>();
         
         foreach (var (fsm, entity) in SystemAPI.Query<RefRO<UIFSM>>()
                      .WithChangeFilter<CurrentStateType>()
@@ -33,12 +32,17 @@ partial struct UIStateTransitions : ISystem
             }
             else if (SystemAPI.IsComponentEnabled<UIStateFighting>(entity))
             {
+                var fightingViewModel = SystemAPI.ManagedAPI.GetSingleton<GameFightingViewModel>();
+
                 ShowFightingStateScreens(ref screens.ValueRW);
                 screens.ValueRW.GameFightingScreen.Value.BindData(fightingViewModel);
             }
             else if (SystemAPI.IsComponentEnabled<UIStateUpgradePhase>(entity))
             {
+                var upgradesViewModel = SystemAPI.ManagedAPI.GetSingleton<GameUpgradesViewModel>();
+
                 ShowUpgradePhaseScreens(ref screens.ValueRW);
+                screens.ValueRW.GameUpgradePhaseScreen.Value.BindData(upgradesViewModel);
             }
         }
     }

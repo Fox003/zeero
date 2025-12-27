@@ -41,9 +41,11 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         AddComponent<LookData>(entity);
         
         AddComponentObject(entity, new ControllerReference());
+        AddComponent<Player>(entity);
+
 
         // COMPONENTS INIT
-        
+
         AddComponent(entity, new PlayerInputs()
         {
             moveInput = new float2(0, 0),

@@ -4,6 +4,8 @@ using UnityEngine;
 class GameDataAuthoring : MonoBehaviour
 {
     public float MaxGameTime;
+    public Transform Player1StartTransform;
+    public Transform Player2StartTransform;
 }
 
 class GameDataAuthoringBaker : Baker<GameDataAuthoring>
@@ -27,7 +29,8 @@ class GameDataAuthoringBaker : Baker<GameDataAuthoring>
         
         AddComponent(entity, new GameData()
         {
-            Players = new PlayerData()
+            player1StartPos = authoring.Player1StartTransform.position,
+            player2StartPos = authoring.Player2StartTransform.position,
         });
         
         AddComponent<GameManager>(entity);

@@ -12,6 +12,8 @@ partial struct GameFightingViewUpdateSystem : ISystem
     
     public void OnUpdate(ref SystemState state)
     {
+
+
         var screens = SystemAPI.GetSingletonRW<UIScreens>();
         var viewModel = SystemAPI.ManagedAPI.GetSingleton<GameFightingViewModel>();
         var gameTimer = SystemAPI.GetSingleton<GameTimerData>();
