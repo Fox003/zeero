@@ -1,5 +1,6 @@
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public static class GameFSMStates
 {
@@ -11,6 +12,28 @@ public static class GameFSMStates
     public static readonly ComponentType MATCH_END_STATE = ComponentType.ReadOnly<GameStateMatchEnd>();
     public static readonly ComponentType ROUND_END_STATE = ComponentType.ReadOnly<GameStateRoundEnd>();
     public static readonly ComponentType UPGRADE_PHASE_STATE = ComponentType.ReadOnly<GameStateUpgradePhase>();
+
+    public enum GameState {
+        INIT_STATE,
+        FIGHTING_STATE,
+        COUNTDOWN_STATE,
+        MATCH_END_STATE,
+        ROUND_END_STATE,
+        UPGRADE_PHASE_STATE
+    }
+
+    public static ComponentType Resolve(GameState state)
+    {
+        return state switch
+        {
+            GameState.INIT_STATE => INIT_STATE,
+            GameState.FIGHTING_STATE => FIGHTING_STATE,
+            GameState.COUNTDOWN_STATE => COUNTDOWN_STATE,
+            GameState.MATCH_END_STATE => MATCH_END_STATE,
+            GameState.ROUND_END_STATE => ROUND_END_STATE,
+            GameState.UPGRADE_PHASE_STATE => UPGRADE_PHASE_STATE,
+        };
+    }
 }
 
 public struct GameStateInit : IComponentData, IEnableableComponent {}

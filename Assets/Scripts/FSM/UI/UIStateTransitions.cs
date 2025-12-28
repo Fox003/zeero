@@ -41,8 +41,8 @@ partial struct UIStateTransitions : ISystem
             {
                 var upgradesViewModel = SystemAPI.ManagedAPI.GetSingleton<GameUpgradesViewModel>();
 
-                ShowUpgradePhaseScreens(ref screens.ValueRW);
                 screens.ValueRW.GameUpgradePhaseScreen.Value.BindData(upgradesViewModel);
+                ShowUpgradePhaseScreens(ref screens.ValueRW);
             }
         }
     }

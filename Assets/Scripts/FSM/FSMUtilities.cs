@@ -42,21 +42,6 @@ public static class FSMUtilities
             }
         }
     }
-
-    /*public static BlobAssetReference<TransitionMapBlob> CreateTransitionMapBlobAssetReference(List<TransitionPair> transitionPairs)
-    {
-        var builder = new BlobBuilder(Allocator.Temp);
-        ref var root = ref builder.ConstructRoot<TransitionMapBlob>();
-        var array = builder.Allocate(ref root.Pairs, transitionPairs.Count);
-
-        for (int i = 0; i < transitionPairs.Count; i++)
-            array[i] = transitionPairs[i];
-
-        var blobRef = builder.CreateBlobAssetReference<TransitionMapBlob>(Allocator.Persistent);
-        builder.Dispose();
-        
-        return blobRef;
-    }*/
     
     public static void SetComponentStateReflectively(
         IBaker baker, 

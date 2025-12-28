@@ -46,8 +46,6 @@ partial struct UISystem : ISystem
             var upgradeData = addUpgradeEvent.ValueRO.UpgradeToAdd;
             Entity targetPlayer = Entity.Null;
 
-            // 2. Find the player with the matching ID
-            // We use QueryBuilder to find the one entity where PlayerIndex.Value == targetID
             foreach (var (index, entity) in SystemAPI.Query<RefRO<Player>>().WithEntityAccess())
             {
                 if (index.ValueRO.PlayerID == targetID)

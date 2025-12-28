@@ -5,7 +5,7 @@ using UnityEngine;
 
 class UITransitionMapAuthoring : MonoBehaviour
 {
-    
+    public ValidUIStateTransitions validTransitions;
 }
 
 class UITransitionMapAuthoringBaker : Baker<UITransitionMapAuthoring>
@@ -13,25 +13,21 @@ class UITransitionMapAuthoringBaker : Baker<UITransitionMapAuthoring>
     public override void Bake(UITransitionMapAuthoring authoring)
     {
         var entity = GetEntity(TransformUsageFlags.None);
-        
-        
-        var transitionPairs = new List<TransitionPair>
+
+
+        var transitionPairs = new List<TransitionPair>();
+
+        foreach (var entry in authoring.validTransitions.transitions)
         {
-            new TransitionPair(from: UIFSMStates.GAME_COUNTDOWN_STATE, to: UIFSMStates.GAME_FIGHTING_STATE),
-            new TransitionPair(from: UIFSMStates.GAME_FIGHTING_STATE, to: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
-            new TransitionPair(from: UIFSMStates.GAME_UPGRADE_PHASE_STATE, to: UIFSMStates.GAME_GAMEOVER_STATE),
+            foreach (var targetState in entry.ToStates)
+            {
+                transitionPairs.Add(new TransitionPair(
+                    from: UIFSMStates.Resolve(entry.FromState),
+                    to: UIFSMStates.Resolve(targetState)
+                ));
+            }
+        }
 
-            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_COUNTDOWN_STATE),
-            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_GAMEOVER_STATE),
-            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_FIGHTING_STATE),
-            new TransitionPair(from: UIFSMStates.HIDDEN_STATE, to: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
-
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_COUNTDOWN_STATE),
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_GAMEOVER_STATE),
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_FIGHTING_STATE),
-            new TransitionPair(to: UIFSMStates.HIDDEN_STATE, from: UIFSMStates.GAME_UPGRADE_PHASE_STATE),
-        };
-        
         AddComponent(entity, new UIStateTransitionMap()
         {
             Transitions = BlobUtils.CreateBlobArrayRefFromList(transitionPairs)

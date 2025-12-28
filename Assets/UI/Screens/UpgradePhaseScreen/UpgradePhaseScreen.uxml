@@ -1,4 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/styles.uss?fileID=7433441132597879392&amp;guid=d9c3ace99f5829d4cb0348a1cfef18d5&amp;type=3#styles"/>
     <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: stretch; flex-direction: column;">
         <ui:VisualElement name="upgrades_container" style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="upgrade1" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-items: stretch; background-color: rgba(0, 0, 0, 0.82); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px;">
@@ -7,12 +8,12 @@
                         <ui:DataBinding property="text" data-source-path="Upgrade1.Name" binding-mode="ToTarget"/>
                     </Bindings>
                 </ui:Label>
-                <ui:Label text="DESCRIPTION" name="description" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 50px; height: 50%;">
+                <ui:Label text="DESCRIPTION" name="description" focusable="true" style="-unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 50px; height: 50%;">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="Upgrade1.Description" binding-mode="ToTarget"/>
                     </Bindings>
                 </ui:Label>
-                <ui:Button text="GET UPGRADE" name="get_upgrade_button" style="font-size: 30px; -unity-font-style: bold; height: 10%;"/>
+                <ui:Button text="GET UPGRADE" name="get_upgrade_button" focusable="true" class="button" style="font-size: 30px; -unity-font-style: bold; height: 10%; transition-property: all; transition-duration: 0s; transition-timing-function: ease; transition-delay: 0s;"/>
             </ui:VisualElement>
             <ui:VisualElement name="upgrade2" style="flex-grow: 1; justify-content: center; align-items: stretch; background-color: rgba(0, 0, 0, 0.82); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
                 <ui:Label text="TITLE" name="title" style="-unity-text-align: middle-center; font-size: 63px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 25%;">
@@ -25,9 +26,9 @@
                         <ui:DataBinding property="text" data-source-path="Upgrade2.Description" binding-mode="ToTarget"/>
                     </Bindings>
                 </ui:Label>
-                <ui:Button text="GET UPGRADE" name="get_upgrade_button" style="font-size: 30px; -unity-font-style: bold; height: 10%;"/>
+                <ui:Button text="GET UPGRADE" name="get_upgrade_button" class="button" style="font-size: 30px; -unity-font-style: bold; height: 10%;"/>
             </ui:VisualElement>
-            <ui:VisualElement name="upgrade3" style="flex-grow: 1; justify-content: center; align-items: stretch; background-color: rgba(0, 0, 0, 0.82); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
+            <ui:VisualElement name="upgrade3" enabled="true" style="flex-grow: 1; justify-content: center; align-items: stretch; background-color: rgba(0, 0, 0, 0.82); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
                 <ui:Label text="TITLE" name="title" style="-unity-text-align: middle-center; font-size: 63px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 25%;">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="Upgrade3.Name" binding-mode="ToTarget"/>
@@ -38,7 +39,7 @@
                         <ui:DataBinding property="text" data-source-path="Upgrade3.Description" binding-mode="ToTarget"/>
                     </Bindings>
                 </ui:Label>
-                <ui:Button text="GET UPGRADE" name="get_upgrade_button" style="font-size: 30px; -unity-font-style: bold; height: 10%;"/>
+                <ui:Button text="GET UPGRADE" name="get_upgrade_button" class="button" style="font-size: 30px; -unity-font-style: bold; height: 10%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button text="CONTINUE" name="test_button" enabled="true" style="width: 100%; height: 74px; align-self: center; align-items: stretch; justify-content: flex-start;"/>

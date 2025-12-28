@@ -1,5 +1,6 @@
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UIElements;
 
 public class UpgradePhaseScreen : UIScreen
@@ -56,6 +57,8 @@ public class UpgradePhaseScreen : UIScreen
         ECB.AddComponent<UIEvent>(entity);
     }
 
+
+
     private void TriggerModifierAdd(UpgradeDefinition upgrade, int PlayerID)
     {
         var entity = ECB.CreateEntity();
@@ -78,5 +81,9 @@ public class UpgradePhaseScreen : UIScreen
         _getUpgradeButton1.SetEnabled(true);
         _getUpgradeButton2.SetEnabled(true);
         _getUpgradeButton3.SetEnabled(true);
+         
+        _getUpgradeButton1.Focus();
+
+        
     }
 }
