@@ -25,11 +25,8 @@ partial struct GameStateSystem : ISystem
             // Round End
             if (conditions.ValueRO.IsTimeUp || conditions.ValueRO.IsPlayerDead)
             {
-                var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
-                var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-
-                FSMUtilities.ChangeFSMState(gameFSM, gameAddBuffer, GameFSMStates.ROUND_END_STATE);
-                FSMUtilities.ChangeFSMState(uiFsm, uiAddBuffer, UIFSMStates.HIDDEN_STATE);
+                FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.ROUND_END_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.HIDDEN_STATE);
             }
         }
     }

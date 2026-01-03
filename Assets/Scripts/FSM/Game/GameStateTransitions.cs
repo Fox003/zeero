@@ -1,4 +1,6 @@
+using System;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -46,8 +48,8 @@ partial struct GameStateTransitions : ISystem
                     SystemAPI.SetComponentEnabled<RequestUpgradeRollTag>(upgradePickerEntity, true);
                 }
 
-                FSMUtilities.ChangeFSMState(gameFSM, SystemAPI.GetBuffer<EnableStateRequest>(gameFSM), GameFSMStates.COUNTDOWN_STATE);
-                FSMUtilities.ChangeFSMState(uiFsm, SystemAPI.GetBuffer<EnableStateRequest>(uiFsm), UIFSMStates.GAME_COUNTDOWN_STATE);
+                FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.COUNTDOWN_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.GAME_COUNTDOWN_STATE);
             }
 
             // OnEnter GameStateFighting
@@ -68,9 +70,23 @@ partial struct GameStateTransitions : ISystem
                 timerData.ValueRW.IsPaused = true;
                 timerData.ValueRW.Reset();
 
-                FSMUtilities.ChangeFSMState(gameFSM, SystemAPI.GetBuffer<EnableStateRequest>(gameFSM), GameFSMStates.UPGRADE_PHASE_STATE);
-                FSMUtilities.ChangeFSMState(uiFsm, SystemAPI.GetBuffer<EnableStateRequest>(uiFsm), UIFSMStates.GAME_UPGRADE_PHASE_STATE);
+                DeterminePlayerRanks(ref state);
+
+                FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.UPGRADE_PHASE_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.GAME_UPGRADE_PHASE_STATE);
             }
+        }
+    }
+
+    struct PlayerSortWrapper : IComparable<PlayerSortWrapper>
+    {
+        public Entity Entity;
+        public float Health;
+
+        public int CompareTo(PlayerSortWrapper other)
+        {
+            // Sort descending: highest health first
+            return other.Health.CompareTo(this.Health);
         }
     }
 
@@ -81,6 +97,33 @@ partial struct GameStateTransitions : ISystem
         transform.Position = position;
 
         SystemAPI.SetComponent(player, transform);
+    }
+
+    private void DeterminePlayerRanks(ref SystemState state)
+    {
+        var playerList = new NativeList<PlayerSortWrapper>(Allocator.Temp);
+
+        foreach (var (health, playerEntity) in SystemAPI.Query<RefRO<HealthState>>().WithEntityAccess())
+        {
+            playerList.Add(new PlayerSortWrapper
+            {
+                Entity = playerEntity,
+                Health = health.ValueRO.CurrentHealth
+            });
+        }
+
+        playerList.Sort();
+
+        var gameDataEntity = SystemAPI.GetSingletonEntity<GameManager>();
+        var buffer = SystemAPI.GetBuffer<PlayerRoundRank>(gameDataEntity);
+        buffer.Clear();
+
+        foreach (var playerEntry in playerList)
+        {
+            buffer.Add(new PlayerRoundRank { Player = playerEntry.Entity });
+        }
+
+        playerList.Dispose();
     }
 
     [BurstCompile]

@@ -77,11 +77,6 @@ public struct HealthState : IComponentData
 
 // -----------------------------------------------------
 
-public struct LookData : IComponentData
-{
-    public float lastAngle;
-}
-
 public struct PlayerInputs : IComponentData, IEnableableComponent
 {
     public bool isGamepad;

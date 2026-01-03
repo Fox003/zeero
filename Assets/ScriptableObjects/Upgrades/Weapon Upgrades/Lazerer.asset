@@ -10,27 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af6c190894c5e544af4c6732e66b732, type: 3}
-  m_Name: Upgrade3 3
+  m_Name: Lazerer
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
-  Name: POOOOP
-  Description: Ass upgrade
-  Rarity: 5
+  Name: Lazerer
+  Description: Increase projectile speed by 5%
+  Rarity: 0
   Duration: -1
   Modifiers:
     MovementStatsModifiers:
       MaxMoveSpeedModifier:
         AdditiveMod: 0
-        MultiplyMod: -0.9
+        MultiplyMod: 0
       AccelerationModifier:
         AdditiveMod: 0
-        MultiplyMod: -0.9
+        MultiplyMod: 0
       DragModifier:
         AdditiveMod: 0
-        MultiplyMod: -0.9
+        MultiplyMod: 0
     HealthStatsModifiers:
       MaxHealthModifier:
         AdditiveMod: 0
-        MultiplyMod: -0.9
+        MultiplyMod: 0
       MaxShieldModifier:
         AdditiveMod: 0
-        MultiplyMod: -0.9
+        MultiplyMod: 0
+    WeaponStatsModifiers:
+      ProjectileSpeedModifier:
+        AdditiveMod: 0
+        MultiplyMod: 5
+      ProjectileSizeModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      ProjectileLifetimeModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      CooldownModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      DamageModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0

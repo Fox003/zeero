@@ -42,27 +42,23 @@ partial struct UISystem : ISystem
         // Add upgrade to player event
         foreach (var (addUpgradeEvent, eventTag) in SystemAPI.Query<RefRO<AddUpgradeToPlayerEvent>, RefRO<UIEvent>>())
         {
-            var targetID = addUpgradeEvent.ValueRO.PlayerID;
+            var target = addUpgradeEvent.ValueRO.Player;
             var upgradeData = addUpgradeEvent.ValueRO.UpgradeToAdd;
-            Entity targetPlayer = Entity.Null;
 
-            foreach (var (index, entity) in SystemAPI.Query<RefRO<Player>>().WithEntityAccess())
+            if (target != Entity.Null)
             {
-                if (index.ValueRO.PlayerID == targetID)
-                {
-                    targetPlayer = entity;
-                    break;
-                }
-            }
-
-            if (targetPlayer != Entity.Null)
-            {
-                var playerModsBuffer = SystemAPI.GetBuffer<ActiveModifier>(targetPlayer);
+                var playerModsBuffer = SystemAPI.GetBuffer<ActiveModifier>(target);
                 ModifierUtils.AddModifier(playerModsBuffer, upgradeData);
+
+                var playerRanks = SystemAPI.GetSingletonBuffer<PlayerRoundRank>();
+                if (!playerRanks.IsEmpty)
+                {
+                    playerRanks.RemoveAt(0);
+                }
             }
             else
             {
-                Debug.LogWarning($"Could not find Player with ID: {targetID}");
+                Debug.LogWarning($"Not player entity was passed through the event");
             }
         }
     }
@@ -83,7 +79,7 @@ public struct UIStateChangeEvent : IComponentData
 public struct AddUpgradeToPlayerEvent : IComponentData 
 {
     public UpgradeDefinition UpgradeToAdd;
-    public int PlayerID;
+    public Entity Player;
 }
 
 

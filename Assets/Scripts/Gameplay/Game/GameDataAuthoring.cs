@@ -34,6 +34,7 @@ class GameDataAuthoringBaker : Baker<GameDataAuthoring>
         });
         
         AddComponent<GameManager>(entity);
+        AddComponent<PlayerRoundRank>(entity);
     }
 }
 

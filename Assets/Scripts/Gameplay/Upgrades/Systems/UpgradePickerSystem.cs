@@ -19,20 +19,22 @@ partial struct UpgradePickerSystem : ISystem
         if (totalUpgrades < 3) return;
 
         var ecb = new EntityCommandBuffer(Allocator.Temp);
-        var random = new Unity.Mathematics.Random((uint)SystemAPI.Time.ElapsedTime + 1);
 
         foreach (var (upgrades, entity) in SystemAPI.Query<RefRW<CurrentUpgrades>>()
                      .WithAll<RequestUpgradeRollTag>()
                      .WithEntityAccess())
         {
             // --- UNIQUE SELECTION LOGIC ---
-            int a = random.NextInt(0, totalUpgrades);
+            uint seed = (uint)(SystemAPI.Time.ElapsedTime * 1000) + (uint)entity.Index + 1;
+            var rng = new Unity.Mathematics.Random(seed);
+
+            int a = rng.NextInt(0, totalUpgrades);
 
             int b;
-            do { b = random.NextInt(0, totalUpgrades); } while (b == a);
+            do { b = rng.NextInt(0, totalUpgrades); } while (b == a);
 
             int c;
-            do { c = random.NextInt(0, totalUpgrades); } while (c == a || c == b);
+            do { c = rng.NextInt(0, totalUpgrades); } while (c == a || c == b);
 
             upgrades.ValueRW.UpgradeID1 = a;
             upgrades.ValueRW.UpgradeID2 = b;

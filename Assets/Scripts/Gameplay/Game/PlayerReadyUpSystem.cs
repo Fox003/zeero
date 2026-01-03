@@ -22,11 +22,9 @@ partial struct PlayerReadyUpSystem : ISystem
         {
             var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
             var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
-            var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
-            var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
 
-            FSMUtilities.ChangeFSMState(gameFSM, gameAddBuffer, GameFSMStates.INIT_STATE);
-            FSMUtilities.ChangeFSMState(uiFsm, uiAddBuffer, UIFSMStates.HIDDEN_STATE);
+            FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.INIT_STATE);
+            FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.HIDDEN_STATE);
 
             state.Enabled = false;
         }

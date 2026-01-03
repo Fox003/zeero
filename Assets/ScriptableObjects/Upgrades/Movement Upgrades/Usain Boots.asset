@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af6c190894c5e544af4c6732e66b732, type: 3}
+  m_Name: Usain Boots
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  Name: Usain Boots
+  Description: Increase acceleration by 5%
+  Rarity: 0
+  Duration: -1
+  Modifiers:
+    MovementStatsModifiers:
+      MaxMoveSpeedModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      AccelerationModifier:
+        AdditiveMod: 0
+        MultiplyMod: 5
+      DragModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+    HealthStatsModifiers:
+      MaxHealthModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      MaxShieldModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+    WeaponStatsModifiers:
+      ProjectileSpeedModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      ProjectileSizeModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      ProjectileLifetimeModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      CooldownModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0
+      DamageModifier:
+        AdditiveMod: 0
+        MultiplyMod: 0

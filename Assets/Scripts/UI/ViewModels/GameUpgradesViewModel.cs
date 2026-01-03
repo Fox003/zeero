@@ -3,7 +3,8 @@ using Unity.Entities;
 public class GameUpgradesViewModel : IComponentData
 {
     public PlayerInputReference PlayerInputReference;
-    public int CurrentUpgradingPlayerID;
+    public Entity CurrentUpgradingPlayer;
+    public string CurrentUpgradingPlayerName;
 
     public UpgradeDefinition Upgrade1;
     public UpgradeDefinition Upgrade2;

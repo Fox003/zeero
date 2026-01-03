@@ -85,6 +85,7 @@ public struct HealthModifiers
     }
 }
 
+[System.Serializable]
 public struct WeaponModifiers
 {
     public Modifier ProjectileSpeedModifier;

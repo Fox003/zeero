@@ -29,6 +29,16 @@ partial struct PlayerInputAssociationSystem : ISystem
                 SystemAPI.SetComponentEnabled<PlayerNeedsInputAssociation>(entity, false);
 
                 SystemAPI.SetComponent(entity, new Player() { PlayerID = controllerReference.PlayerInputRef.PlayerID });
+
+                if (controllerReference.PlayerInputRef.PlayerID == 2)
+                {
+                    state.EntityManager.SetName(entity, "Cyan");
+                }
+                else if (controllerReference.PlayerInputRef.PlayerID == 1)
+                {
+                    state.EntityManager.SetName(entity, "Magenta");
+                }
+
                 orphanInputEntities.RemoveAt(0);
             }
         }

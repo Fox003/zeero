@@ -38,8 +38,7 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         // TAGS
 
         AddComponent<PlayerNeedsInputAssociation>(entity);
-        AddComponent<LookData>(entity);
-        
+
         AddComponentObject(entity, new ControllerReference());
         AddComponent<Player>(entity);
 

@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/styles.uss?fileID=7433441132597879392&amp;guid=d9c3ace99f5829d4cb0348a1cfef18d5&amp;type=3#styles"/>
-    <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: stretch; flex-direction: column; background-color: rgba(0, 0, 0, 0.84);">
+    <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: stretch; flex-direction: column; background-color: rgba(0, 0, 0, 0.97); padding-top: 38px; padding-right: 38px; padding-bottom: 38px; padding-left: 38px;">
         <ui:VisualElement name="upgrades_container" style="flex-grow: 1; flex-direction: row; filter: blur(0); align-self: stretch; justify-content: space-evenly;">
             <ui:VisualElement name="upgrade1" data-source-type="GameUpgradesViewModel, Assembly-CSharp" class="upgrade">
                 <ui:Label text="TITLE" name="title" class="UpgradeTitle upgrade__title">
@@ -42,6 +42,11 @@
                 <ui:Button text="GET UPGRADE" name="get_upgrade_button" class="upgrade__button"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="CONTINUE" name="test_button" enabled="true" style="width: 100%; height: 74px; align-self: center; align-items: stretch; justify-content: flex-start;"/>
+        <ui:Button text="CONTINUE" name="test_button" enabled="true" style="width: 100%; height: 74px; align-self: center; align-items: stretch; justify-content: flex-start; display: none;"/>
+        <ui:Label text="Label" name="player_upgrading_label" class="upgrade__description" style="height: 8%; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="CurrentUpgradingPlayerName" binding-mode="ToTarget"/>
+            </Bindings>
+        </ui:Label>
     </ui:VisualElement>
 </ui:UXML>

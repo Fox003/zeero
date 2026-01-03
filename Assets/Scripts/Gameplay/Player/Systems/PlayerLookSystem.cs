@@ -18,7 +18,7 @@ partial struct PlayerLookSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (transform, inputs, lookData) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInputs>, RefRW<LookData>>())
+        foreach (var (transform, inputs) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInputs>>())
         {
             var lookDirection = new float2();
             

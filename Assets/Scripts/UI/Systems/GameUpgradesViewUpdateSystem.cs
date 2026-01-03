@@ -14,6 +14,9 @@ partial struct GameUpgradesViewUpdateSystem : ISystem
     {
         var viewModel = SystemAPI.ManagedAPI.GetSingleton<GameUpgradesViewModel>();
         var currentPlayerUpgrading = SystemAPI.GetSingleton<CurrentPlayerUpgrading>();
+        var playerRanks = SystemAPI.GetSingletonBuffer<PlayerRoundRank>();
+
+        
 
         foreach (var currentUpgrades in SystemAPI.Query<RefRO<CurrentUpgrades>>().WithChangeFilter<CurrentUpgrades>())
         {
@@ -24,7 +27,11 @@ partial struct GameUpgradesViewUpdateSystem : ISystem
             viewModel.Upgrade3 = upgradeDB.AllUpgrades.Value[currentUpgrades.ValueRO.UpgradeID3];
         }
 
-        viewModel.CurrentUpgradingPlayerID = currentPlayerUpgrading.PlayerID;
+        if (!playerRanks.IsEmpty)
+        {
+            viewModel.CurrentUpgradingPlayer = playerRanks[0].Player;
+            viewModel.CurrentUpgradingPlayerName = $"Currently upgrading: { state.EntityManager.GetName(playerRanks[0].Player)}";
+        }
     }
 
     [BurstCompile]

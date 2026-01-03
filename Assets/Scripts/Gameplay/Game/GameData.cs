@@ -16,6 +16,11 @@ public struct PlayerData : IBufferElementData
     
 }
 
+public struct PlayerRoundRank : IBufferElementData
+{
+    public Entity Player;
+}
+
 public struct GameTimerData : IComponentData
 {
     public bool IsPaused;

@@ -1,13 +1,9 @@
 :root {
 }
 
-
-
-
-
 .upgrade__title {
     -unity-text-align: middle-center;
-    font-size: 63px;
+    font-size: 55px;
     -unity-font-style: bold;
     color: rgb(255, 255, 255);
     height: 25%;
@@ -26,7 +22,7 @@
 .upgrade__description {
     -unity-text-align: middle-center;
     color: rgb(255, 255, 255);
-    font-size: 45px;
+    font-size: 40px;
     height: 50%;
     -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
     -unity-font-style: normal;
@@ -61,8 +57,6 @@
 .upgrade {
     width: 33%;
 }
-
-
 
 .upgrade__button:focus {
     height: 10%;
