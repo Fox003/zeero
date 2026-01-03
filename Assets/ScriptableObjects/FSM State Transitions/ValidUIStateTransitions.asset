@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ValidUIStateTransitions
   transitions:
   - FromState: 0
-    ToStates: 01000000020000000300000004000000
+    ToStates: 0100000002000000030000000400000005000000
   - FromState: 1
     ToStates: 0200000000000000
   - FromState: 2
     ToStates: 0400000000000000
   - FromState: 4
     ToStates: 0000000003000000
+  - FromState: 5
+    ToStates: 0000000001000000

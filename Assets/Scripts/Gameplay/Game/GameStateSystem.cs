@@ -27,18 +27,9 @@ partial struct GameStateSystem : ISystem
             {
                 var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
                 var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-            
-                gameAddBuffer.Add(new EnableStateRequest()
-                {
-                    Entity = gameFSM,
-                    StateToEnable = GameFSMStates.UPGRADE_PHASE_STATE,
-                });
-            
-                uiAddBuffer.Add(new EnableStateRequest()
-                {
-                    Entity = uiFsm,
-                    StateToEnable = UIFSMStates.GAME_UPGRADE_PHASE_STATE
-                });
+
+                FSMUtilities.ChangeFSMState(gameFSM, gameAddBuffer, GameFSMStates.ROUND_END_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, uiAddBuffer, UIFSMStates.HIDDEN_STATE);
             }
         }
     }

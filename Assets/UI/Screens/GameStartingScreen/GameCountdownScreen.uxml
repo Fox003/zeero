@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="main_container" style="flex-grow: 1;">
-        <ui:Label text="3" name="countdown_label" style="flex-shrink: 1; flex-grow: 1; font-size: 150px; -unity-text-align: middle-center; -unity-font-style: bold;" />
+    <ui:VisualElement name="main_container" style="flex-grow: 1; -unity-font-definition: url(&quot;project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&amp;guid=96616d56799adc546be0b6ef0a15ca46&amp;type=3#DePixelBreit&quot;);">
+        <ui:Label text="3" name="countdown_label" style="flex-shrink: 1; flex-grow: 1; font-size: 150px; -unity-text-align: middle-center; -unity-font-style: bold; color: rgb(255, 255, 255);"/>
     </ui:VisualElement>
 </ui:UXML>

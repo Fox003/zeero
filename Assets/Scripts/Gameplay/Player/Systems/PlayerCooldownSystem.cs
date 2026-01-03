@@ -1,6 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
 
+[UpdateInGroup(typeof(GameplaySystemGroup))]
 partial struct PlayerCooldownSystem : ISystem
 {
     [BurstCompile]

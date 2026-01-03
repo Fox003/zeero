@@ -12,10 +12,10 @@ class GameFSMAuthoringBaker : Baker<GameFSMAuthoring>
         var entity = GetEntity(TransformUsageFlags.None);
         
         AddComponent<GameFSM>(entity);
-        AddComponent(entity, new CurrentStateType(){Type = GameFSMStates.INIT_STATE});
+        AddComponent(entity, new CurrentStateType(){Type = GameFSMStates.WAITING_FOR_PLAYERS_STATE});
 
         AddComponent(entity, GameFSMStates.INIT_STATE);
-        FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.INIT_STATE, true);
+        FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.INIT_STATE, false);
 
         AddComponent(entity, GameFSMStates.COUNTDOWN_STATE);
         FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.COUNTDOWN_STATE, false);
@@ -31,6 +31,9 @@ class GameFSMAuthoringBaker : Baker<GameFSMAuthoring>
         
         AddComponent(entity, GameFSMStates.UPGRADE_PHASE_STATE);
         FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.UPGRADE_PHASE_STATE, false);
+
+        AddComponent(entity, GameFSMStates.WAITING_FOR_PLAYERS_STATE);
+        FSMUtilities.SetComponentStateReflectively(this, entity, GameFSMStates.WAITING_FOR_PLAYERS_STATE, true);
     }
 }
 

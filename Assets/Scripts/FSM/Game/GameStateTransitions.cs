@@ -24,6 +24,7 @@ partial struct GameStateTransitions : ISystem
                      .WithChangeFilter<CurrentStateType>()
                      .WithEntityAccess())
         {
+            // OnEnter GameStateInit
             if (SystemAPI.IsComponentEnabled<GameStateInit>(entity))
             {
                 var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
@@ -31,34 +32,44 @@ partial struct GameStateTransitions : ISystem
                 var gameData = SystemAPI.GetSingleton<GameData>();
                 var upgradePickerEntity = SystemAPI.GetSingletonEntity<CurrentUpgrades>();
 
-                foreach (var (player, movement, weapon, health, stats, playerEntity) in
+                foreach (var (player, movementState, weaponState, healthState, stats, playerEntity) in
                          SystemAPI.Query<Player, RefRW<MovementState>, RefRW<WeaponState>, RefRW<HealthState>, PlayerBaseStats>()
                          .WithEntityAccess())
                 {
                     float3 startPos = (player.PlayerID == 2) ? gameData.player1StartPos : gameData.player2StartPos;
                     SetPlayerPosition(playerEntity, startPos, ref state);
 
-                    movement.ValueRW.Reset();
-                    weapon.ValueRW.Reset();
-                    health.ValueRW.Reset(stats);
+                    movementState.ValueRW.Reset();
+                    weaponState.ValueRW.Reset();
+                    healthState.ValueRW.Reset(stats);
 
                     SystemAPI.SetComponentEnabled<RequestUpgradeRollTag>(upgradePickerEntity, true);
                 }
 
-                GameFSMUtilities.OnInitChangeGameState(
-                    uiFsm,
-                    gameFSM,
-                    SystemAPI.GetBuffer<EnableStateRequest>(uiFsm),
-                    SystemAPI.GetBuffer<EnableStateRequest>(gameFSM)
-                );
+                FSMUtilities.ChangeFSMState(gameFSM, SystemAPI.GetBuffer<EnableStateRequest>(gameFSM), GameFSMStates.COUNTDOWN_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, SystemAPI.GetBuffer<EnableStateRequest>(uiFsm), UIFSMStates.GAME_COUNTDOWN_STATE);
             }
+
             // OnEnter GameStateFighting
             else if (SystemAPI.IsComponentEnabled<GameStateFighting>(entity))
             {
-                // Start the timer
                 var timerData = SystemAPI.GetSingletonRW<GameTimerData>();
 
-                GameFSMUtilities.OnFightingStateEnter(ref timerData.ValueRW);
+                timerData.ValueRW.IsPaused = false;
+            }
+
+            // OnEnter GameStateRoundEnd
+            else if (SystemAPI.IsComponentEnabled<GameStateRoundEnd>(entity))
+            {
+                var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
+                var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
+                var timerData = SystemAPI.GetSingletonRW<GameTimerData>();
+
+                timerData.ValueRW.IsPaused = true;
+                timerData.ValueRW.Reset();
+
+                FSMUtilities.ChangeFSMState(gameFSM, SystemAPI.GetBuffer<EnableStateRequest>(gameFSM), GameFSMStates.UPGRADE_PHASE_STATE);
+                FSMUtilities.ChangeFSMState(uiFsm, SystemAPI.GetBuffer<EnableStateRequest>(uiFsm), UIFSMStates.GAME_UPGRADE_PHASE_STATE);
             }
         }
     }

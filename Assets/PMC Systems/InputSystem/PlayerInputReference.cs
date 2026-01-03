@@ -7,6 +7,7 @@ public class PlayerInputReference : IComponentData
     public int PlayerID;
     public PlayerInputActions PlayerInput;
     public InputDevice Device;
+    public InputUser InputUser;
 }
 
 public struct Player1Tag : IComponentData { }

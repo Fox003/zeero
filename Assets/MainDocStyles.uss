@@ -1,0 +1,7 @@
+:root {
+}
+
+.screen {
+    display: none;
+    flex-grow: 1;
+}

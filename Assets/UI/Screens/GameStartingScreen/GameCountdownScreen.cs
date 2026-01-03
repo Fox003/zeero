@@ -35,11 +35,27 @@ public class GameCountdownScreen : UIScreen
             onFinish: OnTimerComplete);
         
         _timer.Start();
+
+        RootElement.style.scale = new StyleScale(new Scale(new Vector3(0, 0, 0))); // Set initial state
+        RootElement.experimental.animation.Scale(1f, 500);
     }
 
     public override void Hide()
     {
         RootElement.style.display = DisplayStyle.None;
+
+        // Because I call Hide on ALL other screens everytime I want to show one, I can't animate the hiding of screens yet
+        /* TODO :
+         * Add a UIStateComponent which holds the current UI 
+         * that is showing and only hide this one before showing 
+         * the new UI
+        
+        RootElement.experimental.animation.Scale(0, 500)
+            .OnCompleted(() =>
+            {
+                RootElement.style.display = DisplayStyle.None;
+            });
+        */
     }
     
 
@@ -47,6 +63,11 @@ public class GameCountdownScreen : UIScreen
     {
         _countdownLabel.text = _currentCountdown.ToString();
         _currentCountdown--;
+
+        _countdownLabel.experimental.animation.Scale(1.5f, 150)
+        .OnCompleted(() => {
+            _countdownLabel.experimental.animation.Scale(1.0f, 150);
+        });
     }
 
     private void OnTimerComplete()

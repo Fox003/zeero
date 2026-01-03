@@ -12,6 +12,7 @@ public static class GameFSMStates
     public static readonly ComponentType MATCH_END_STATE = ComponentType.ReadOnly<GameStateMatchEnd>();
     public static readonly ComponentType ROUND_END_STATE = ComponentType.ReadOnly<GameStateRoundEnd>();
     public static readonly ComponentType UPGRADE_PHASE_STATE = ComponentType.ReadOnly<GameStateUpgradePhase>();
+    public static readonly ComponentType WAITING_FOR_PLAYERS_STATE = ComponentType.ReadOnly<GameStateWaitingForPlayers>();
 
     public enum GameState {
         INIT_STATE,
@@ -19,7 +20,8 @@ public static class GameFSMStates
         COUNTDOWN_STATE,
         MATCH_END_STATE,
         ROUND_END_STATE,
-        UPGRADE_PHASE_STATE
+        UPGRADE_PHASE_STATE,
+        WAITING_FOR_PLAYERS_STATE,
     }
 
     public static ComponentType Resolve(GameState state)
@@ -32,10 +34,13 @@ public static class GameFSMStates
             GameState.MATCH_END_STATE => MATCH_END_STATE,
             GameState.ROUND_END_STATE => ROUND_END_STATE,
             GameState.UPGRADE_PHASE_STATE => UPGRADE_PHASE_STATE,
+            GameState.WAITING_FOR_PLAYERS_STATE => WAITING_FOR_PLAYERS_STATE,
+            _ => INIT_STATE
         };
     }
 }
 
+public struct GameStateWaitingForPlayers : IComponentData, IEnableableComponent { }
 public struct GameStateInit : IComponentData, IEnableableComponent {}
 public struct GameStateCountdown : IComponentData, IEnableableComponent {}
 public struct GameStateFighting : IComponentData, IEnableableComponent {}

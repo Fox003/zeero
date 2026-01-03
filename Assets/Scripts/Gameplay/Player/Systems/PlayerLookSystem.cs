@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+[UpdateInGroup(typeof(GameplaySystemGroup))]
 partial struct PlayerLookSystem : ISystem
 {
     private float lastAngle;

@@ -5,6 +5,8 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+[UpdateInGroup(typeof(GameplaySystemGroup))]
+
 partial struct PlayerShootSystem : ISystem
 {
     [BurstCompile]

@@ -44,11 +44,17 @@ partial struct UIStateTransitions : ISystem
                 screens.ValueRW.GameUpgradePhaseScreen.Value.BindData(upgradesViewModel);
                 ShowUpgradePhaseScreens(ref screens.ValueRW);
             }
+
+            else if (SystemAPI.IsComponentEnabled<UIStateWaitingForPlayers>(entity))
+            {
+                ShowWaitingForPlayersScreen(ref screens.ValueRW);
+            }
         }
     }
 
     private void HideAllScreens(ref UIScreens screens)
     {
+        screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Hide();
@@ -56,6 +62,7 @@ partial struct UIStateTransitions : ISystem
 
     private void ShowStartingStateScreens(ref UIScreens screens)
     {
+        screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Show();
         screens.GameFightingScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Hide();
@@ -63,6 +70,7 @@ partial struct UIStateTransitions : ISystem
     
     private void ShowFightingStateScreens(ref UIScreens screens)
     {
+        screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Show();
         screens.GameUpgradePhaseScreen.Value.Hide();
@@ -70,8 +78,17 @@ partial struct UIStateTransitions : ISystem
 
     private void ShowUpgradePhaseScreens(ref UIScreens screens)
     {
+        screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Show();
+    }
+
+    private void ShowWaitingForPlayersScreen(ref UIScreens screens)
+    {
+        screens.WaitingForPlayersScreen.Value.Show();
+        screens.GameCountdownScreen.Value.Hide();
+        screens.GameFightingScreen.Value.Hide();
+        screens.GameUpgradePhaseScreen.Value.Hide();
     }
 }

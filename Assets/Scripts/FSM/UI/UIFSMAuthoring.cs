@@ -13,7 +13,7 @@ class UIFSMBaker : Baker<UIFSMAuthoring>
         var entity = GetEntity(TransformUsageFlags.None);
         
         AddComponent<UIFSM>(entity);
-        AddComponent(entity, new CurrentStateType(){Type = UIFSMStates.HIDDEN_STATE});
+        AddComponent(entity, new CurrentStateType(){Type = UIFSMStates.GAME_WAITING_FOR_PLAYERS});
         
         
         AddComponent<UIStateFighting>(entity);
@@ -30,6 +30,9 @@ class UIFSMBaker : Baker<UIFSMAuthoring>
 
         AddComponent<UIStateUpgradePhase>(entity);
         FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_UPGRADE_PHASE_STATE, false);
+
+        AddComponent<UIStateWaitingForPlayers>(entity);
+        FSMUtilities.SetComponentStateReflectively(this, entity, UIFSMStates.GAME_WAITING_FOR_PLAYERS, true);
 
     }
     

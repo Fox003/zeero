@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="main_container" data-source-type="GameFightingViewModel, Assembly-CSharp" style="flex-grow: 1;">
         <ui:VisualElement name="timer_container" style="flex-grow: 1; -unity-text-align: middle-center;">
-            <ui:Label name="label" style="font-size: 56px; -unity-font-style: bold; color: rgb(255, 255, 255);">
+            <ui:Label name="label" text="60" style="font-size: 56px; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&amp;guid=96616d56799adc546be0b6ef0a15ca46&amp;type=3#DePixelBreit&quot;);">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="RawTimeInSeconds" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="RawTimeInSeconds" binding-mode="ToTarget"/>
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>

@@ -22,6 +22,7 @@ class UIAuthoringBaker : Baker<UIAuthoring>
             GameFightingScreen = GameFightingScreen.Instantiate(root.Q<VisualElement>("game_fighting_screen")),
             GameCountdownScreen = GameCountdownScreen.Instantiate(root.Q<VisualElement>("game_countdown_screen")),
             GameUpgradePhaseScreen = UpgradePhaseScreen.Instantiate(root.Q<VisualElement>("game_upgrade_screen")),
+            WaitingForPlayersScreen = WaitingForPlayersScreen.Instantiate(root.Q<VisualElement>("game_waiting_for_players_screen")),
         });
         
         AddComponentObject(entity, new GameFightingViewModel());

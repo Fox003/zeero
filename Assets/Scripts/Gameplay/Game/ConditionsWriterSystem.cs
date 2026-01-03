@@ -3,6 +3,8 @@ using Unity.Entities;
 
 partial struct ConditionsWriterSystem : ISystem
 {
+    
+
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
@@ -14,6 +16,7 @@ partial struct ConditionsWriterSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var gameTimer = SystemAPI.GetSingleton<GameTimerData>();
+        
 
         if (gameTimer.CurrentTime < 0)
         {
@@ -23,6 +26,8 @@ partial struct ConditionsWriterSystem : ISystem
             gameConditions.ValueRW.IsTimeUp = true;
             timerRW.ValueRW.Reset();
         }
+
+        
     }
 
     [BurstCompile]

@@ -1,16 +1,123 @@
 :root {
 }
 
-.button {
+
+
+
+
+.upgrade__title {
+    -unity-text-align: middle-center;
+    font-size: 63px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    height: 25%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    flex-grow: 1;
+    flex-shrink: 1;
+    -unity-text-outline-color: rgb(1, 0, 147);
+    -unity-text-outline-width: 3px;
+    white-space: pre-wrap;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
 }
 
-.button:focus {
-    border-top-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    border-left-width: 10px;
-    border-left-color: rgb(0, 255, 40);
-    border-right-color: rgb(0, 255, 40);
-    border-top-color: rgb(0, 255, 40);
-    border-bottom-color: rgb(0, 255, 40);
+.upgrade__description {
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    height: 50%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    -unity-font-style: normal;
+    white-space: pre-wrap;
+    padding-top: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+}
+
+.upgrade__button {
+    height: 10%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgb(28, 41, 29);
+    color: rgb(4, 255, 0);
+    transition-property: border-width, scale;
+    transition-duration: 100ms, 100ms;
+    transition-timing-function: ease-in-out, ease-in-out;
+}
+
+.upgrade {
+    width: 33%;
+}
+
+
+
+.upgrade__button:focus {
+    height: 10%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    border-left-color: rgb(10, 168, 0);
+    border-right-color: rgb(10, 168, 0);
+    border-top-color: rgb(10, 168, 0);
+    border-bottom-color: rgb(10, 168, 0);
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    background-color: rgb(28, 41, 29);
+    color: rgb(4, 255, 0);
+    scale: 1 1;
+    transition-property: border-width, scale;
+    transition-duration: 125ms, 100ms;
+    transition-timing-function: ease-in-out, ease;
+}
+
+.upgrade__button:active {
+    height: 10%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    border-left-color: rgb(10, 168, 0);
+    border-right-color: rgb(10, 168, 0);
+    border-top-color: rgb(10, 168, 0);
+    border-bottom-color: rgb(10, 168, 0);
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    background-color: rgb(28, 41, 29);
+    color: rgb(4, 255, 0);
+    scale: 0.9 0.9;
+    transition-property: border-width, scale;
+    transition-duration: 125ms, 100ms;
+    transition-timing-function: ease-in-out, ease-in-out;
+}
+
+.upgrade__button:disabled {
+    height: 10%;
+    -unity-font-definition: url("project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&guid=96616d56799adc546be0b6ef0a15ca46&type=3#DePixelBreit");
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    background-color: rgb(51, 51, 51);
+    color: rgb(4, 255, 0);
+    transition-property: border-width, scale;
+    transition-duration: 125ms, 100ms;
+    transition-timing-function: ease-in-out, ease-in-out;
+    scale: 0.8 0.8;
 }

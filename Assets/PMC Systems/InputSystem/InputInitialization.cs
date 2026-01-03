@@ -4,6 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -84,3 +85,7 @@ partial struct InputInitialization : ISystem, ISystemStartStop
 }
 
 public struct PlayerInputNeedsAssociation : IComponentData, IEnableableComponent{}
+public class UIControllerPrefab : IComponentData
+{
+    public GameObject Value;
+}

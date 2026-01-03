@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/styles.uss?fileID=7433441132597879392&amp;guid=d9c3ace99f5829d4cb0348a1cfef18d5&amp;type=3#styles"/>
+    <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: stretch; flex-direction: column; background-color: rgba(0, 0, 0, 0.84);">
+        <ui:Label text="Waiting for players..." name="waiting_title" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&amp;guid=96616d56799adc546be0b6ef0a15ca46&amp;type=3#DePixelBreit&quot;); font-size: 70px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; -unity-font-style: bold; -unity-text-align: middle-center;"/>
+    </ui:VisualElement>
+</ui:UXML>

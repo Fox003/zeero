@@ -77,4 +77,13 @@ public static class FSMUtilities
         
         specificMethod.Invoke(baker, new object[] { entity, isEnabled });
     }
+
+    public static void ChangeFSMState(Entity fsmEntity, DynamicBuffer<EnableStateRequest> buffer, ComponentType stateType)
+    {
+        buffer.Add(new EnableStateRequest()
+        {
+            Entity = fsmEntity,
+            StateToEnable = stateType,
+        });
+    }
 }

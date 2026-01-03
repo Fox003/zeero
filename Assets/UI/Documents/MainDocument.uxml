@@ -2,7 +2,10 @@
     <ui:Template name="GameFightingScreen" src="project://database/Assets/UI/Screens/FightingScreen/GameFightingScreen.uxml?fileID=9197481963319205126&amp;guid=b04c3e08cdf174acfb298b94b66d9247&amp;type=3#GameFightingScreen"/>
     <ui:Template name="GameStartScreen" src="project://database/Assets/UI/Screens/GameStartingScreen/GameCountdownScreen.uxml?fileID=9197481963319205126&amp;guid=a9b10c022c3514532aa75356c553367e&amp;type=3#GameCountdownScreen"/>
     <ui:Template name="UpgradePhaseScreen" src="project://database/Assets/UI/Screens/UpgradePhaseScreen/UpgradePhaseScreen.uxml?fileID=9197481963319205126&amp;guid=9c0fffd9e2a67e64fb1ea90a669813f5&amp;type=3#UpgradePhaseScreen"/>
-    <ui:Instance template="UpgradePhaseScreen" name="game_upgrade_screen" style="flex-grow: 1; display: none;"/>
-    <ui:Instance template="GameStartScreen" name="game_countdown_screen" style="flex-grow: 1; color: rgb(255, 255, 255); display: none;"/>
-    <ui:Instance template="GameFightingScreen" name="game_fighting_screen" style="display: none;"/>
+    <ui:Template name="WaitingForPlayersScreen" src="project://database/Assets/UI/Screens/WaitingForPlayersScreen/WaitingForPlayersScreen.uxml?fileID=9197481963319205126&amp;guid=0fb2fe542e22e9944bf4ee502615f3ac&amp;type=3#WaitingForPlayersScreen"/>
+    <Style src="project://database/Assets/MainDocStyles.uss?fileID=7433441132597879392&amp;guid=a9a468cdd8256e74b8f31e9a309e21b9&amp;type=3#MainDocStyles"/>
+    <ui:Instance template="UpgradePhaseScreen" name="game_upgrade_screen" class="screen" style="flex-grow: 1; display: none;"/>
+    <ui:Instance template="GameStartScreen" name="game_countdown_screen" class="screen" style="flex-grow: 1; color: rgb(255, 255, 255); display: none;"/>
+    <ui:Instance template="GameFightingScreen" name="game_fighting_screen" class="screen"/>
+    <ui:Instance template="WaitingForPlayersScreen" name="game_waiting_for_players_screen" class="screen"/>
 </ui:UXML>

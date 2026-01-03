@@ -96,7 +96,12 @@ public partial struct ProjectileCollisionJob : ICollisionEventsJob
         }
         else if (bodyBisProjectile && bodyAisProjectile)
         {
-            
+            DestroyRequestLookup.SetComponentEnabled(entityA, true);
+        }
+        else
+        {
+            DestroyRequestLookup.SetComponentEnabled(entityA, true);
+
         }
     }
 

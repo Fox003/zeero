@@ -3,7 +3,7 @@ using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
+[UpdateInGroup(typeof(FSMStateValidationGroup))]
 [UpdateBefore(typeof(CommitStateTransitionSystem))]
 partial struct UIStateTransitionValidation : ISystem
 {

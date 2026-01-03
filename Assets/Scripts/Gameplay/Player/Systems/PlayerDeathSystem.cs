@@ -2,6 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
 
+[UpdateInGroup(typeof(GameplaySystemGroup))]
 partial struct PlayerDeathSystem : ISystem
 {
     [BurstCompile]
