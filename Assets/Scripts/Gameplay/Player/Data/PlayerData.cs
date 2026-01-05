@@ -91,6 +91,11 @@ public struct Player : IComponentData
     public int PlayerID;
 }
 
+public struct GameStats : IComponentData
+{
+    public int CurrentPoints;
+}
+
 public class ControllerReference : IComponentData
 {
     public PlayerInputReference PlayerInputRef;

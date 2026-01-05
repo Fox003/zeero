@@ -4,9 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 [UpdateAfter(typeof(CommitStateTransitionSystem))]
 [UpdateBefore(typeof(UIStateTransitions))]
 partial struct GameStateTransitions : ISystem
@@ -19,9 +17,11 @@ partial struct GameStateTransitions : ISystem
         state.RequireForUpdate<GameTimerData>();
     }
 
-    [BurstCompile]
+    //[BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        var ecb = new EntityCommandBuffer(Allocator.Temp);
+
         foreach (var (fsm, entity) in SystemAPI.Query<RefRO<GameFSM>>()
                      .WithChangeFilter<CurrentStateType>()
                      .WithEntityAccess())
@@ -33,6 +33,8 @@ partial struct GameStateTransitions : ISystem
                 var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
                 var gameData = SystemAPI.GetSingleton<GameData>();
                 var upgradePickerEntity = SystemAPI.GetSingletonEntity<CurrentUpgrades>();
+
+                LoadNewRandomLevel(ref ecb, ref state);
 
                 foreach (var (player, movementState, weaponState, healthState, stats, playerEntity) in
                          SystemAPI.Query<Player, RefRW<MovementState>, RefRW<WeaponState>, RefRW<HealthState>, PlayerBaseStats>()
@@ -65,17 +67,57 @@ partial struct GameStateTransitions : ISystem
             {
                 var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
                 var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
+                var gameData = SystemAPI.GetSingleton<GameData>();
+
+                
+
                 var timerData = SystemAPI.GetSingletonRW<GameTimerData>();
 
                 timerData.ValueRW.IsPaused = true;
                 timerData.ValueRW.Reset();
 
-                DeterminePlayerRanks(ref state);
+                var playerList = new NativeList<PlayerSortWrapper>(Allocator.Temp);
+
+                foreach (var (health, playerEntity) in SystemAPI.Query<RefRO<HealthState>>().WithEntityAccess())
+                {
+                    playerList.Add(new PlayerSortWrapper
+                    {
+                        Entity = playerEntity,
+                        Health = health.ValueRO.CurrentHealth
+                    });
+                }
+
+                playerList.Sort();
+
+                
+                AddPointToPlayer(playerList.ElementAt(0).Entity, ref state);
+
+                if (HasAnyPlayerWon(playerList, gameData.PointsToWin, ref state))
+                {
+                    FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.MATCH_END_STATE);
+                    FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.GAME_GAMEOVER_STATE);
+
+                    return;
+                }
+                
+                DeterminePlayerRanks(playerList, ref state);
+                
 
                 FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.UPGRADE_PHASE_STATE);
                 FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.GAME_UPGRADE_PHASE_STATE);
             }
+            // OnEnter GameStateMatchEnd
+            else if (SystemAPI.IsComponentEnabled<GameStateMatchEnd>(entity))
+            {
+                foreach (var (playerTag, playerGameStats) in SystemAPI.Query<RefRO<Player>, RefRW<GameStats>>())
+                {
+                    playerGameStats.ValueRW.CurrentPoints = 0;
+                }
+            }
         }
+
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 
     struct PlayerSortWrapper : IComparable<PlayerSortWrapper>
@@ -99,21 +141,8 @@ partial struct GameStateTransitions : ISystem
         SystemAPI.SetComponent(player, transform);
     }
 
-    private void DeterminePlayerRanks(ref SystemState state)
+    private void DeterminePlayerRanks(NativeList<PlayerSortWrapper> playerList, ref SystemState state)
     {
-        var playerList = new NativeList<PlayerSortWrapper>(Allocator.Temp);
-
-        foreach (var (health, playerEntity) in SystemAPI.Query<RefRO<HealthState>>().WithEntityAccess())
-        {
-            playerList.Add(new PlayerSortWrapper
-            {
-                Entity = playerEntity,
-                Health = health.ValueRO.CurrentHealth
-            });
-        }
-
-        playerList.Sort();
-
         var gameDataEntity = SystemAPI.GetSingletonEntity<GameManager>();
         var buffer = SystemAPI.GetBuffer<PlayerRoundRank>(gameDataEntity);
         buffer.Clear();
@@ -122,8 +151,47 @@ partial struct GameStateTransitions : ISystem
         {
             buffer.Add(new PlayerRoundRank { Player = playerEntry.Entity });
         }
+    }
 
-        playerList.Dispose();
+    private bool HasAnyPlayerWon(NativeList<PlayerSortWrapper> playerList, int pointsToWin, ref SystemState state)
+    {
+        foreach (var player in playerList)
+        {
+            if (SystemAPI.GetComponent<GameStats>(player.Entity).CurrentPoints >= pointsToWin)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void AddPointToPlayer(Entity player, ref SystemState state)
+    {
+        var playerGameStats = SystemAPI.GetComponentRW<GameStats>(player);
+        playerGameStats.ValueRW.CurrentPoints++;
+    }
+
+    private void LoadNewRandomLevel(ref EntityCommandBuffer ecb, ref SystemState state)
+    {
+        var registry = SystemAPI.GetSingleton<LevelRegistry>();
+        uint baseSeed = (uint)UnityEngine.Random.Range(1, uint.MaxValue);
+
+        var rng = Unity.Mathematics.Random.CreateFromIndex(baseSeed + ((uint)SystemAPI.Time.ElapsedTime * 1000));
+
+        int randomIndex = rng.NextInt(0, registry.LevelsBlob.Value.Length);
+        var nextSceneRef = registry.LevelsBlob.Value[randomIndex];
+
+        var levelState = SystemAPI.TryGetSingleton<CurrentLevelState>(out var currentLevel);
+
+        if (currentLevel.Level != Entity.Null)
+        {
+            var unloadReq = ecb.CreateEntity();
+            ecb.AddComponent(unloadReq, new SceneUnloadRequest { SceneEntity = currentLevel.Level });
+        }
+
+        var loadReq = ecb.CreateEntity();
+        ecb.AddComponent(loadReq, new SceneLoadRequest { SceneReference = nextSceneRef });
     }
 
     [BurstCompile]

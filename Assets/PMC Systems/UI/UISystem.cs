@@ -21,22 +21,8 @@ partial struct UISystem : ISystem
         // UI State change event
         foreach (var (stateChangeEvent, eventTag) in SystemAPI.Query<RefRO<UIStateChangeEvent>, RefRO<UIEvent>>())
         {
-            var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFsm);
-            var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-            
-            gameAddBuffer.Add(new EnableStateRequest()
-            {
-                Entity = gameFsm,
-                IgnoreRequestFlag = false,
-                StateToEnable = stateChangeEvent.ValueRO.NewGameState,
-            });
-            
-            uiAddBuffer.Add(new EnableStateRequest()
-            {
-                Entity = uiFsm,
-                IgnoreRequestFlag = false,
-                StateToEnable = stateChangeEvent.ValueRO.NewUIState
-            });
+            FSMUtilities.ChangeFSMState(gameFsm, state.EntityManager, stateChangeEvent.ValueRO.NewGameState);
+            FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, stateChangeEvent.ValueRO.NewUIState);
         }
 
         // Add upgrade to player event

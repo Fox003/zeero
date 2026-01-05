@@ -30,6 +30,7 @@ partial struct UIEventSystem : ISystem
         screens.GameFightingScreen.Value.ECB = ecb;
         screens.GameUpgradePhaseScreen.Value.ECB = ecb;
         screens.GameCountdownScreen.Value.ECB = ecb;
+        screens.GameOverScreen.Value.ECB = ecb;
     }
 
     public void OnDestroy(ref SystemState state)

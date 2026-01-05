@@ -16,17 +16,20 @@ partial struct PlayerReadyUpSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
+        var gameState = SystemAPI.GetComponent<CurrentStateType>(gameFSM);
+
+        if (gameState.Type != GameFSMStates.WAITING_FOR_PLAYERS_STATE)
+            return;
+
         int readyPlayers = _readyPlayerQuery.CalculateEntityCount();
 
         if (readyPlayers >= 2)
         {
-            var gameFSM = SystemAPI.GetSingletonEntity<GameFSM>();
             var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
 
             FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.INIT_STATE);
             FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.HIDDEN_STATE);
-
-            state.Enabled = false;
         }
     }
 

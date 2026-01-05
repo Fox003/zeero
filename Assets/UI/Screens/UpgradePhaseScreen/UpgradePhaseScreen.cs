@@ -46,21 +46,6 @@ public class UpgradePhaseScreen : UIScreen
         buttonClicked.SetEnabled(false);
     }
 
-    private void TriggerStateChange(ComponentType NewGameState, ComponentType NewUIState)
-    {
-        var entity = ECB.CreateEntity();
-
-        ECB.AddComponent(entity, new UIStateChangeEvent()
-        {
-            NewGameState = NewGameState,
-            NewUIState = NewUIState
-        });
-
-        ECB.AddComponent<UIEvent>(entity);
-    }
-
-
-
     private void TriggerModifierAdd(UpgradeDefinition upgrade, Entity Player)
     {
         var entity = ECB.CreateEntity();

@@ -49,6 +49,10 @@ partial struct UIStateTransitions : ISystem
             {
                 ShowWaitingForPlayersScreen(ref screens.ValueRW);
             }
+            else if (SystemAPI.IsComponentEnabled<UIStateGameOver>(entity))
+            {
+                ShowGameOverScreen(ref screens.ValueRW);
+            }
         }
     }
 
@@ -58,6 +62,7 @@ partial struct UIStateTransitions : ISystem
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Hide();
+        screens.GameOverScreen.Value.Hide();
     }
 
     private void ShowStartingStateScreens(ref UIScreens screens)
@@ -65,6 +70,7 @@ partial struct UIStateTransitions : ISystem
         screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Show();
         screens.GameFightingScreen.Value.Hide();
+        screens.GameOverScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Hide();
     }
     
@@ -74,10 +80,12 @@ partial struct UIStateTransitions : ISystem
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Show();
         screens.GameUpgradePhaseScreen.Value.Hide();
+        screens.GameOverScreen.Value.Hide();
     }
 
     private void ShowUpgradePhaseScreens(ref UIScreens screens)
     {
+        screens.GameOverScreen.Value.Hide();
         screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
@@ -86,7 +94,17 @@ partial struct UIStateTransitions : ISystem
 
     private void ShowWaitingForPlayersScreen(ref UIScreens screens)
     {
+        screens.GameOverScreen.Value.Hide();
         screens.WaitingForPlayersScreen.Value.Show();
+        screens.GameCountdownScreen.Value.Hide();
+        screens.GameFightingScreen.Value.Hide();
+        screens.GameUpgradePhaseScreen.Value.Hide();
+    }
+
+    private void ShowGameOverScreen(ref UIScreens screens)
+    {
+        screens.GameOverScreen.Value.Show();
+        screens.WaitingForPlayersScreen.Value.Hide();
         screens.GameCountdownScreen.Value.Hide();
         screens.GameFightingScreen.Value.Hide();
         screens.GameUpgradePhaseScreen.Value.Hide();

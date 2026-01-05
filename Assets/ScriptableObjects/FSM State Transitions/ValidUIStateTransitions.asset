@@ -18,8 +18,10 @@ MonoBehaviour:
   - FromState: 1
     ToStates: 0200000000000000
   - FromState: 2
-    ToStates: 0400000000000000
+    ToStates: 040000000000000003000000
   - FromState: 4
-    ToStates: 0000000003000000
+    ToStates: 00000000
   - FromState: 5
     ToStates: 0000000001000000
+  - FromState: 3
+    ToStates: 0000000005000000

@@ -6,4 +6,5 @@ public struct UIScreens : IComponentData
     public UnityObjectRef<GameFightingScreen> GameFightingScreen;
     public UnityObjectRef<UpgradePhaseScreen> GameUpgradePhaseScreen;
     public UnityObjectRef<WaitingForPlayersScreen> WaitingForPlayersScreen;
+    public UnityObjectRef<GameOverScreen> GameOverScreen;
 }

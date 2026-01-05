@@ -22,4 +22,17 @@ public abstract class UIScreen : ScriptableObject
     {
         RootElement.style.display = DisplayStyle.None;
     }
+
+    protected void TriggerStateChange(ComponentType NewGameState, ComponentType NewUIState)
+    {
+        var entity = ECB.CreateEntity();
+
+        ECB.AddComponent(entity, new UIStateChangeEvent()
+        {
+            NewGameState = NewGameState,
+            NewUIState = NewUIState
+        });
+
+        ECB.AddComponent<UIEvent>(entity);
+    }
 }

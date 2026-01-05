@@ -41,6 +41,7 @@ class PlayerAuthoringBaker : Baker<PlayerAuthoring>
 
         AddComponentObject(entity, new ControllerReference());
         AddComponent<Player>(entity);
+        AddComponent<GameStats>(entity);
 
 
         // COMPONENTS INIT

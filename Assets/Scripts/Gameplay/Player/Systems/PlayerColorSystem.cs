@@ -6,16 +6,19 @@ using UnityEngine;
 
 partial struct PlayerColorSystem : ISystem
 {
+    private BufferLookup<Child> childLookup;
+
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        
+        childLookup = state.GetBufferLookup<Child>(true);
     }
 
     public void OnUpdate(ref SystemState state)
     {
-        var childLookup = state.GetBufferLookup<Child>(true);
         var entityManager = state.EntityManager;
+
+        childLookup.Update(ref state);
 
         // Player 1
         foreach (var (player, entity) in SystemAPI.Query<Player>().WithEntityAccess())

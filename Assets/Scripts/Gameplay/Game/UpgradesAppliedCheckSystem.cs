@@ -24,23 +24,6 @@ partial struct UpgradesAppliedCheckSystem : ISystem
         {
             var uiFsm = SystemAPI.GetSingletonEntity<UIFSM>();
 
-            /*var gameAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(gameFSM);
-            var uiAddBuffer = SystemAPI.GetBuffer<EnableStateRequest>(uiFsm);
-
-            gameAddBuffer.Add(new EnableStateRequest()
-            {
-                Entity = gameFSM,
-                IgnoreRequestFlag = false,
-                StateToEnable = GameFSMStates.INIT_STATE,
-            });
-
-            uiAddBuffer.Add(new EnableStateRequest()
-            {
-                Entity = uiFsm,
-                IgnoreRequestFlag = false,
-                StateToEnable = UIFSMStates.HIDDEN_STATE
-            });*/
-
             FSMUtilities.ChangeFSMState(gameFSM, state.EntityManager, GameFSMStates.INIT_STATE);
             FSMUtilities.ChangeFSMState(uiFsm, state.EntityManager, UIFSMStates.HIDDEN_STATE);
         }

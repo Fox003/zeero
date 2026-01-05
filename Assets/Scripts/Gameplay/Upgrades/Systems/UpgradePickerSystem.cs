@@ -24,7 +24,6 @@ partial struct UpgradePickerSystem : ISystem
                      .WithAll<RequestUpgradeRollTag>()
                      .WithEntityAccess())
         {
-            // --- UNIQUE SELECTION LOGIC ---
             uint seed = (uint)(SystemAPI.Time.ElapsedTime * 1000) + (uint)entity.Index + 1;
             var rng = new Unity.Mathematics.Random(seed);
 
