@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/styles.uss?fileID=7433441132597879392&amp;guid=d9c3ace99f5829d4cb0348a1cfef18d5&amp;type=3#styles"/>
-    <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: center; flex-direction: column; background-color: rgba(0, 0, 0, 0.84);">
-        <ui:Label text="GAME OVER" name="main_title" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&amp;guid=96616d56799adc546be0b6ef0a15ca46&amp;type=3#DePixelBreit&quot;); font-size: 203px; color: rgb(161, 8, 126); -unity-text-outline-color: rgb(89, 0, 1); -unity-text-outline-width: 7px; -unity-font-style: bold; -unity-text-align: middle-center;"/>
-        <ui:Button text="PLAY AGAIN" name="play_again_button" class="upgrade__button" style="height: 87px; width: 580px;"/>
+    <ui:VisualElement name="main_container" data-source-type="GameUpgradesViewModel, Assembly-CSharp" style="flex-grow: 1; justify-content: center; align-self: auto; align-items: stretch; flex-direction: column; background-color: rgba(0, 0, 0, 0.84); align-content: center;">
+        <ui:Label text="GAME OVER" name="main_title" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/DePixelBreit.ttf?fileID=12800000&amp;guid=96616d56799adc546be0b6ef0a15ca46&amp;type=3#DePixelBreit&quot;); font-size: 157px; color: rgb(161, 8, 126); -unity-text-outline-color: rgb(89, 0, 1); -unity-text-outline-width: 7px; -unity-font-style: bold; -unity-text-align: middle-center; flex-wrap: wrap-reverse;"/>
+        <ui:Button text="PLAY AGAIN" name="play_again_button" class="upgrade__button" style="height: 87px; width: 580px; align-self: center;"/>
     </ui:VisualElement>
 </ui:UXML>

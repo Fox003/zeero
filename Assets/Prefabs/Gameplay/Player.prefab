@@ -90,7 +90,7 @@ MonoBehaviour:
   ShootTransform: {fileID: 3692516350156418184}
   Projectile: {fileID: 1222493698362355362, guid: 755f2893421e7b64081a30572e2f55f9, type: 3}
   ProjectileSpeed: 7
-  ProjectileSize: 1
+  ProjectileSize: 0.001
   ProjectileDuration: 2
 --- !u!114 &-7358549907698784124
 MonoBehaviour:
